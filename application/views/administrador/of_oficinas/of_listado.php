@@ -151,7 +151,7 @@
 										<tr>
 											<td><?= $row->of_id_oficina; ?></td>
 											<td><?= $row->of_nombre; ?></td>
-											<td><?= number_format($row->of_precio,2,'.',','); ?></td>
+											<td>$<?= number_format($row->of_precio,2,'.',','); ?></td>
 											<td><?php 
 											$num_int = '';
 											if(isset($row->ub_numero_interior )){

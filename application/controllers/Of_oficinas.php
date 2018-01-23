@@ -60,7 +60,7 @@ class of_oficinas extends CI_Controller {
 
         $this->usuariosModel->usuario_activo_o_inactivo();
         $data['oficina']     = $this->oficinasModel->getoficinaID($of_id_oficina);
-        $data['ubicaciones'] = $this->ubicacionesModel->getUbicaciones();
+        $data['ubicaciones'] = $this->ubicacionesModel->getUbicaciones(1);
         $this->load->view('administrador/of_oficinas/of_editar', $data);
     }
 
