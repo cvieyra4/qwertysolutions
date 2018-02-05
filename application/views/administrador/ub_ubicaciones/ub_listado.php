@@ -37,6 +37,10 @@
 							<a class="username">Hola <?= $this->session->userdata('us_usuario'); ?></a>
 						</li>
 						<li>
+							<a href="<?= base_url(); ?>administrador/sitio_web"><i class="fa fa-globe"></i>
+							</a>
+						</li>
+						<li>
 							<a href="<?= base_url(); ?>administrador/destroy"><i class="fa fa-power-off"></i>
 							</a>
 						</li>

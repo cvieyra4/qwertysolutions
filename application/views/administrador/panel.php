@@ -17,7 +17,6 @@
 		<link rel="stylesheet" href="<?= plugin_url(); ?>bootstrap-colorpalette/css/bootstrap-colorpalette.css">
 		<link rel="stylesheet" href="<?= plugin_url(); ?>perfect-scrollbar/src/perfect-scrollbar.css">
 		<link rel="stylesheet" href="<?= css_url(); ?>theme_light.css" type="text/css" id="skin_color">
-		<link rel="stylesheet" href="assets/plugins/fullcalendar/fullcalendar/fullcalendar.css">
 		<link rel="shortcut icon" href="favicon.ico" />
 	</head>
 	<body>
@@ -35,6 +34,10 @@
 					<ul class="nav navbar-right">
 						<li class="dropdown current-user">
 							<a class="username">Hola <?= $this->session->userdata('us_usuario'); ?></a>
+						</li>
+						<li>
+							<a href="<?= base_url(); ?>administrador/sitio_web"><i class="fa fa-globe"></i>
+							</a>
 						</li>
 						<li>
 							<a href="<?= base_url(); ?>administrador/destroy"><i class="fa fa-power-off"></i>
@@ -129,7 +132,6 @@
 		<script src="<?= plugin_url(); ?>jquery.sparkline/jquery.sparkline.js"></script>
 		<script src="<?= plugin_url(); ?>jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
 		<script src="<?= plugin_url(); ?>jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-		<script src="<?= plugin_url(); ?>fullcalendar/fullcalendar/fullcalendar.js"></script>
 		<script src="<?= js_url(); ?>index.js"></script>
 		<script>
 			jQuery(document).ready(function() {

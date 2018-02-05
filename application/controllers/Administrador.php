@@ -70,6 +70,13 @@ class Administrador extends CI_Controller {
 		}
     }
 
+    public function sitio_web()
+    {
+	   $this->session->sess_destroy();
+       redirect(base_url(), 'refresh');
+    }
+
+
     public function destroy()
     {
 	   $this->session->sess_destroy();

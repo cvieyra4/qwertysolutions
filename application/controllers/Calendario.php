@@ -23,9 +23,8 @@ class calendario extends CI_Controller {
     public function ejecutar_registrar_evento(){
 
     	$this->form_validation->set_rules('ca_titulo', 'titulo', 'required|xss_clean');
-    	$this->form_validation->set_rules('ca_id_oficina', 'oficina', 'required|xss_clean');
-    	$this->form_validation->set_rules('ca_horario_inicio', 'Horario Inicio', 'required|xss_clean');
-    	$this->form_validation->set_rules('ca_horario_fin', 'Horario Final', 'required|xss_clean');
+    	$this->form_validation->set_rules('ca_hora_inicio', 'hora Inicio', 'required|xss_clean');
+    	$this->form_validation->set_rules('ca_hora_fin', 'hora Final', 'required|xss_clean');
     	if ($this->form_validation->run() == false){
         	echo json_encode(false);
 	    }else{
@@ -47,8 +46,8 @@ class calendario extends CI_Controller {
 
     	$this->form_validation->set_rules('ca_titulo_editar', 'titulo', 'required|xss_clean');
     	$this->form_validation->set_rules('ca_id_oficina_editar', 'oficina', 'required|xss_clean');
-    	$this->form_validation->set_rules('ca_horario_inicio_editar', 'Horario Inicio', 'required|xss_clean');
-    	$this->form_validation->set_rules('ca_horario_fin_editar', 'Horario Final', 'required|xss_clean');
+    	$this->form_validation->set_rules('ca_hora_inicio_editar', 'hora Inicio', 'required|xss_clean');
+    	$this->form_validation->set_rules('ca_hora_fin_editar', 'hora Final', 'required|xss_clean');
     	if ($this->form_validation->run() == false){
         	echo json_encode(false);
 	    }else{

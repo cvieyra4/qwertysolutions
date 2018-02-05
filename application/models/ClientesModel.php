@@ -7,7 +7,6 @@ class clientesModel extends CI_Model {
 		$this->load->library('session');
     }
 
-
     public function getClientes($status) {
 		if($status==1){
             $this->db->where('a.cl_status', 1); 
@@ -113,6 +112,14 @@ class clientesModel extends CI_Model {
 
         $this->db->where('cl_id_cliente', $cl_id_cliente);
         $this->db->update('cl_clientes',$data);
+    }
+
+    /* Metodo para login de clientes en el sitio web */
+    public function checkClientelog($usuario) {
+        $this->db->where('cl_usuario', $usuario);
+        $this->db->where('cl_status', 1);
+        $query = $this->db->get('cl_clientes')->row();
+        return $query;
     }
 
 }

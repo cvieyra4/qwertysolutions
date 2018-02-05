@@ -8,6 +8,7 @@ class calendarioModel extends CI_Model {
     } 
 
     public function getEventos() {
+        $this->db->where('ca_id_oficina', $this->input->post('ca_id_oficina'));
         $this->db->where('ca_status', 1);
         $query = $this->db->get('calendario')->result();
         return $query;
@@ -31,8 +32,8 @@ class calendarioModel extends CI_Model {
             'ca_titulo'         => $this->input->post('ca_titulo'),
             'ca_fecha_inicio'   => $ca_fecha_inicio,
             'ca_fecha_fin'      => $ca_fecha_fin,
-            'ca_horario_inicio' => $this->input->post('ca_horario_inicio'),
-            'ca_horario_fin'    => $this->input->post('ca_horario_fin'),
+            'ca_hora_inicio'    => $this->input->post('ca_hora_inicio'),
+            'ca_hora_fin'       => $this->input->post('ca_hora_fin'),
             'ca_id_oficina'     => $this->input->post('ca_id_oficina'),
             'ca_status'         => 1
         );
@@ -55,8 +56,8 @@ class calendarioModel extends CI_Model {
 
         $data = array(
             'ca_titulo'         => $this->input->post('ca_titulo_editar'),
-            'ca_horario_inicio' => $this->input->post('ca_horario_inicio_editar'),
-            'ca_horario_fin'    => $this->input->post('ca_horario_fin_editar'),
+            'ca_hora_inicio' => $this->input->post('ca_hora_inicio_editar'),
+            'ca_hora_fin'    => $this->input->post('ca_hora_fin_editar'),
             'ca_id_oficina'     => $this->input->post('ca_id_oficina_editar')
         );
 
@@ -81,6 +82,19 @@ class calendarioModel extends CI_Model {
             return true;
         }
 
+    }
+
+    public function getFechasDisponibles(){
+        $fecha = explode('/', $this->input->post('re_fecha'));
+        $re_fecha = $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
+
+
+        $this->db->where('ca_id_oficina', $this->input->post('re_id_oficina'));
+        $this->db->where('ca_status', 1);
+        $this->db->where('ca_fecha_inicio <=', $re_fecha);
+        $this->db->where('ca_fecha_fin >=', $re_fecha);
+        $query = $this->db->get('calendario')->row();
+        return $query;
     }
 
 }

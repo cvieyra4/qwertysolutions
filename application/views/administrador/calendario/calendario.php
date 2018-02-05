@@ -39,7 +39,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script src="<?= plugin_url(); ?>jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
 		<script>
-		$( document ).ready(function() {
+		/*$( document ).ready(function() {
 			var $modal 		 = $('#agregar-eventoModal');
 			var $modalEditar = $('#editar-eventoModal'); 
 			var event = [];
@@ -70,7 +70,7 @@
 			                left: 'prev,next today',
 			                center: 'title',
 			                right: 'month,agendaWeek,agendaDay'
-			            },*/
+			            },
 			            events: event,
 			            selectable: true,
 			            selectHelper: true,
@@ -117,8 +117,8 @@
 							    	success: function(resp){
 							    		$('#ca_titulo_editar').val(resp.ca_titulo);
 							    		$('#ca_id_oficina_editar option[value="'+resp.ca_id_oficina+'"]').attr("selected", "selected");
-							    		$('#ca_horario_inicio_editar, .horarioInicioEditar').val(timeFormat(resp.ca_horario_inicio));
-							    		$('#ca_horario_fin_editar, .horarioFinEditar').val(timeFormat(resp.ca_horario_fin));
+							    		$('#ca_hora_inicio_editar, .horaInicioEditar').val(timeFormat(resp.ca_hora_inicio));
+							    		$('#ca_hora_fin_editar, .horaFinEditar').val(timeFormat(resp.ca_hora_fin));
 							    		$modalEditar.modal('show');
 							    		$('#id_evento_editar').val(resp.id_evento);
 							    	}
@@ -184,6 +184,10 @@
 							<a class="username">Hola <?= $this->session->userdata('us_usuario'); ?></a>
 						</li>
 						<li>
+							<a href="<?= base_url(); ?>administrador/sitio_web"><i class="fa fa-globe"></i>
+							</a>
+						</li>
+						<li>
 							<a href="<?= base_url(); ?>administrador/destroy"><i class="fa fa-power-off"></i>
 							</a>
 						</li>
@@ -246,14 +250,25 @@
 								<li class="active">
 									Calendario
 								</li>
-								<div class="page-header">
-								</div>
 							</ol>
+							<div class="page-header">
+							</div>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-12">
-							<!-- start: FULL CALENDAR PANEL -->
+						<div class="col-xs-12 col-sm-3">
+						<label>Seleccionar Calendario de Oficina</label>
+						<select class="form-control" id="ca_id_oficina">
+							<option value="0">Seleccionar Oficina</option>
+							<?php foreach ($oficinas as $row): ?>
+								<option value="<?= $row->of_id_oficina; ?>" clave="<?= $row->of_nombre; ?>"><?= $row->of_nombre; ?></option>
+							<?php endforeach; ?>
+						</select>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12">
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<i class="fa fa-calendar"></i>
@@ -261,11 +276,11 @@
 								</div>
 								<div class="panel-body">
 									<div class="col-sm-12">
-										<div id="calendar"></div>
+										<!-- <div id="calendar"></div> -->
+										<div id="calendario"></div>
 									</div>
 								</div>
 							</div>
-							<!-- end: FULL CALENDAR PANEL -->
 						</div>
 					</div>
 				</div>
@@ -279,41 +294,31 @@
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="limpiarFomulario()">
 							&times;
 						</button>
-						<h4 class="modal-title">Agregar Evento</h4>
+						<h4 class="modal-title add-event"></h4>
 					</div>
 					<div class="modal-body">
 						 <form id="formulario_evento" action="<?= base_url(); ?>calendario/ejecutar_registrar_evento" method="post" accept-charset="utf-8" enctype="multipart/form-data" autocomplete="off">
 						<div class="row">
+							<input type="hidden" class="ca_id_oficina" name="ca_id_oficina">
 							<!-- Titulo -->
 							<div class="col-sm-12">
 								<label class="control-label">Titulo</label>
 							    <input type="text" placeholder="titulo" name="ca_titulo" class="form-control" id="ca_titulo" required >
 							    <span class="pull_center error_ca_titulo" style="color:red;"></span>
 							</div>
-							<!-- Oficina -->
-							<div class="col-sm-12">
-								<label class="control-label">Oficina</label>
-							    <select class="form-control" name="ca_id_oficina" id="ca_id_oficina" required>
-							    	<option value="0">Eligir Oficina</option>
-							        <?php foreach($oficinas as $row): ?>
-									<option value="<?= $row->of_id_oficina; ?>"><?= $row->of_nombre; ?></option>
-							    	<?php endforeach; ?>
-							    </select>
-							    <span class="pull_center error_ca_id_oficina" style="color:red;"></span>
-							</div>
-							<!-- Horario Inicio -->
+							<!-- hora Inicio -->
 							<div class="col-sm-6">
-								<label class="control-label">Horario Inicio</label>
-							    <input type="text" class="form-control horarioInicio" onkeypress="return SoloNumeros(event);" />
-							    <input type="hidden" name="ca_horario_inicio" id="ca_horario_inicio" value="">
-							    <span class="pull_center error_ca_horario_inicio" style="color:red;"></span>
+								<label class="control-label">hora Inicio</label>
+							    <input type="text" class="form-control horaInicio" onkeypress="return SoloNumeros(event);" />
+							    <input type="hidden" name="ca_hora_inicio" id="ca_hora_inicio" value="">
+							    <span class="pull_center error_ca_hora_inicio" style="color:red;"></span>
 							</div>
-							<!-- Horario Final -->
+							<!-- hora Final -->
 							<div class="col-sm-6">
-							    <label class="control-label">Horario Final</label>
-							    <input type="text" class="form-control horarioFin" onkeypress="return SoloNumeros(event);"  />
-							    <input type="hidden" name="ca_horario_fin" id="ca_horario_fin" value=""  >
-							    <span class="pull_center error_ca_horario_fin" style="color:red;"></span>
+							    <label class="control-label">hora Final</label>
+							    <input type="text" class="form-control horaFin" onkeypress="return SoloNumeros(event);"  />
+							    <input type="hidden" name="ca_hora_fin" id="ca_hora_fin" value=""  >
+							    <span class="pull_center error_ca_hora_fin" style="color:red;"></span>
 							</div>
 						</div>
 							<!-- Fecha Inicio, Fecha Final -->
@@ -340,7 +345,7 @@
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="limpiarFomulario()">
 							&times;
 						</button>
-						<h4 class="modal-title">Editar Evento</h4>
+						<h4 class="modal-title edit-event"></h4>
 					</div>
 					<div class="modal-body">
 						 <form id="formulario_editar_evento" action="<?= base_url(); ?>calendario/ejecutar_editar_evento" method="post" accept-charset="utf-8" enctype="multipart/form-data" autocomplete="off">
@@ -355,30 +360,19 @@
 							    <input type="text" placeholder="titulo" name="ca_titulo_editar" class="form-control" id="ca_titulo_editar" required >
 							    <span class="pull_center error_ca_titulo_editar" style="color:red;"></span>
 							</div>
-							<!-- Oficina -->
-							<div class="col-sm-12">
-								<label class="control-label">Oficina</label>
-							    <select class="form-control" name="ca_id_oficina_editar" id="ca_id_oficina_editar" required>
-							    	<option value="0">Eligir Oficina</option>
-							        <?php foreach($oficinas as $row): ?>
-									<option value="<?= $row->of_id_oficina; ?>"><?= $row->of_nombre; ?></option>
-							    	<?php endforeach; ?>
-							    </select>
-							    <span class="pull_center error_ca_id_oficina_editar" style="color:red;"></span>
-							</div>
-							<!-- Horario Inicio -->
+							<!-- hora Inicio -->
 							<div class="col-sm-6">
-								<label class="control-label">Horario Inicio</label>
-							    <input type="text" class="form-control horarioInicioEditar" onkeypress="return SoloNumeros(event);" />
-							    <input type="hidden" name="ca_horario_inicio_editar" id="ca_horario_inicio_editar" value="">
-							    <span class="pull_center error_ca_horario_inicio_editar" style="color:red;"></span>
+								<label class="control-label">hora Inicio</label>
+							    <input type="text" class="form-control horaInicioEditar" onkeypress="return SoloNumeros(event);" />
+							    <input type="hidden" name="ca_hora_inicio_editar" id="ca_hora_inicio_editar" value="">
+							    <span class="pull_center error_ca_hora_inicio_editar" style="color:red;"></span>
 							</div>
-							<!-- Horario Final -->
+							<!-- hora Final -->
 							<div class="col-sm-6">
-							    <label class="control-label">Horario Final</label>
-							    <input type="text" class="form-control horarioFinEditar" onkeypress="return SoloNumeros(event);"  />
-							    <input type="hidden" name="ca_horario_fin_editar" id="ca_horario_fin_editar" value="">
-							    <span class="pull_center error_ca_horario_fin_editar" style="color:red;"></span>
+							    <label class="control-label">hora Final</label>
+							    <input type="text" class="form-control horaFinEditar" onkeypress="return SoloNumeros(event);"  />
+							    <input type="hidden" name="ca_hora_fin_editar" id="ca_hora_fin_editar" value="">
+							    <span class="pull_center error_ca_hora_fin_editar" style="color:red;"></span>
 							</div>
 						</div>
 						</form>
@@ -427,8 +421,143 @@
 		<script src="<?= js_url(); ?>jquery-confirm.min.js"></script>
 		<script src="<?= js_url(); ?>jquery.timepicker.min.js"></script>
 		<script>
-			jQuery(document).ready(function() {
+			$(document).ready(function() {
 				Main.init();
+
+				var $modal 		 = $('#agregar-eventoModal');
+				var $modalEditar = $('#editar-eventoModal');
+
+				$('#ca_id_oficina').change(function(){
+					var ca_id_oficina = $(this).val();
+					var oficina = $("#ca_id_oficina option:selected").attr('clave');
+					var event = [];
+					var calendar = $('#calendario').html('');
+					if(ca_id_oficina != 0){
+						$.ajax({
+				            type: 'POST',
+						    url: '<?= base_url(); ?>calendario/getEventos',
+						    data: 'ca_id_oficina='+ca_id_oficina,
+						    dataType: 'json',
+						    success: function(resp) {
+						        $.each(resp, function(k,v){
+						        	event.push({
+						        		id: v.id_evento,
+						            	title: v.ca_titulo,
+							            start: v.ca_fecha_inicio,
+							            end: v.ca_fecha_fin
+							        });
+							    });
+							    calendar = $('#calendario').fullCalendar({
+				        		monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+								monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+								dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+								dayNamesShort: ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],
+				            	buttonText: {
+				                prev: '<i class="fa fa-chevron-left"></i>',
+				                next: '<i class="fa fa-chevron-right"></i>'
+				            	},
+
+						        /*header: {
+						        	left: 'prev,next today',
+						            center: 'title',
+						            right: 'month,agendaWeek,agendaDay'
+						        },*/
+
+						        events: event,
+						        selectable: true,
+						        selectHelper: true,
+						        select: function (start, end, allDay) {
+						        	$modal.modal('show');
+						        	$('.add-event').html('Agregar Evento, Oficina: '+oficina);
+						        	$('.ca_id_oficina').val(ca_id_oficina);
+						            $('#ca_fecha_inicio').val(dateFormat(start));
+						            $('#ca_fecha_fin').val(dateFormat(end));
+
+						            $('.guardar-evento').click(function(){
+						            			if(validarEvento()){
+						            			var title = $('#ca_titulo').val();
+						            			$.ajax({
+						            				type: 'POST',
+										            url:  $("#formulario_evento").attr('action'),
+										            data: $("#formulario_evento").serialize(),
+										            dataType: 'json',
+										            success: function(resp){
+										            	if(resp){
+										            		calendar.fullCalendar('renderEvent', {
+										            			id: resp,
+								                                title: title,
+								                                start: start,
+								                                end: end,
+								                                allDay: allDay,
+								                                //className: $categoryClass
+								                            }, true); // make the event "stick"
+								                            $("#formulario_evento")[0].reset();
+						            						$modal.modal('hide');
+										            	}else{
+
+										            	}
+										            }
+						            			});
+						            		}
+						            	});
+						            },
+						            eventClick: function (calEvent, jsEvent, view) {
+						            	$.ajax({
+						            		type: 'POST',
+										    url:  '<?= base_url(); ?>calendario/getEventoId',
+										    data: 'id_evento='+calEvent._id,
+										    dataType: 'json',
+										    	success: function(resp){
+										    		$('#ca_titulo_editar').val(resp.ca_titulo);
+										    		$('#ca_id_oficina_editar option[value="'+resp.ca_id_oficina+'"]').attr("selected", "selected");
+										    		$('#ca_hora_inicio_editar, .horaInicioEditar').val(timeFormat(resp.ca_hora_inicio));
+										    		$('#ca_hora_fin_editar, .horaFinEditar').val(timeFormat(resp.ca_hora_fin));
+										    		$modalEditar.modal('show');
+										    		$('#id_evento_editar').val(resp.id_evento);
+										    	}
+						            		});
+						            	$('.editar-evento').click(function(){
+						            		calEvent.title = $('#ca_titulo_editar').val();
+						            		$.ajax({
+						            			type: 'POST',
+										        url:  $("#formulario_editar_evento").attr('action'),
+										        data: $("#formulario_editar_evento").serialize(),
+										        dataType: 'json',
+										        success: function(resp){
+										        	if(resp){
+										            	calendar.fullCalendar('updateEvent', calEvent);
+						            					$modalEditar.modal('hide');
+						            				}else{
+
+						            				}
+										        }
+										    });
+						            	});
+						            	$('.eliminar-evento').click(function(){
+						            		$.ajax({
+						            			type: 'POST',
+										        url:  '<?= base_url(); ?>calendario/eliminar_evento',
+										        data: 'id_evento='+calEvent._id,
+										        dataType: 'json',
+										        success: function(resp){
+										        	if(resp){
+									            		calendar.fullCalendar('removeEvents', function (ev) {
+									            			alert(calEvent.id);
+									                        return (ev._id == calEvent._id);
+						                    			});
+						                    			$modalEditar.modal('hide');
+						                    		}else{
+
+						                    		}
+						                    	}
+						                    });
+						            	});
+						            }
+					        	});
+							}
+						});	
+					}
+				});
 			});
 
 			function dateFormat( df ) {
@@ -454,49 +583,49 @@
 			}
 
 
-			/* Guardar la variable del horario de inicio para luego usarla */
-			var horarioInicio = '';
-			$('.horarioInicio').timepicker({
+			/* Guardar la variable del hora de inicio para luego usarla */
+			var horaInicio = '';
+			$('.horaInicio').timepicker({
 				timeFormat: 'G:i',
     			show2400: true,
 				'minTime': '00:00',
 				'maxTime': '24:00'
 			});
-			$('.horarioInicio').change(function(){
-				horarioInicio = $(this).val();
-				if(horarioInicio != ''){
-					$('#ca_horario_inicio').val(horarioInicio);
-					$('.horarioFin').timepicker({
+			$('.horaInicio').change(function(){
+				horaInicio = $(this).val();
+				if(horaInicio != ''){
+					$('#ca_hora_inicio').val(horaInicio);
+					$('.horaFin').timepicker({
 						timeFormat: 'G:i',
     					show2400: true,
-					    'minTime': horarioInicio,
+					    'minTime': horaInicio,
 					    'maxTime': '24:00'
 					});
 				}
 			});
 
-			$('.horarioFin').change(function(){
-				var horarioFin = $(this).val();
-				if(horarioFin != ''){
-					$('#ca_horario_fin').val(horarioFin);
+			$('.horaFin').change(function(){
+				var horaFin = $(this).val();
+				if(horaFin != ''){
+					$('#ca_hora_fin').val(horaFin);
 				}
 			});
-			/* Guardar la variable del horario de inicioEditar para luego usarla */
-			var horarioInicioEditar = '';
-			$('.horarioInicioEditar').timepicker({
+			/* Guardar la variable del hora de inicioEditar para luego usarla */
+			var horaInicioEditar = '';
+			$('.horaInicioEditar').timepicker({
 				timeFormat: 'G:i',
     			show2400: true,
 				'minTime': '00:00',
 				'maxTime': '24:00'
 			});
-			$('.horarioInicioEditar').change(function(){
-				horarioInicioEditar = $(this).val();
-				if(horarioInicioEditar != ''){
-					$('#ca_horario_inicio_editar').val(horarioInicioEditar);
-					$('.horarioFinEditar').timepicker({
+			$('.horaInicioEditar').change(function(){
+				horaInicioEditar = $(this).val();
+				if(horaInicioEditar != ''){
+					$('#ca_hora_inicio_editar').val(horaInicioEditar);
+					$('.horaFinEditar').timepicker({
 						timeFormat: 'G:i',
     					show2400: true,
-					    'minTime': horarioInicioEditar,
+					    'minTime': horaInicioEditar,
 					    'maxTime': '24:00'
 					});
 				}
@@ -504,10 +633,10 @@
 			});
 
 			
-			$('.horarioFinEditar').change(function(){
-				var horarioFinEditar = $(this).val();
-				if(horarioFinEditar != ''){
-					$('#ca_horario_fin_editar').val(horarioFinEditar);
+			$('.horaFinEditar').change(function(){
+				var horaFinEditar = $(this).val();
+				if(horaFinEditar != ''){
+					$('#ca_hora_fin_editar').val(horaFinEditar);
 				}
 			});
 			
@@ -520,22 +649,16 @@
 			 	}else{
 			 		$('.error_ca_titulo').html('');
 			 	}
-			 	if($('#ca_id_oficina').val() == 0){
-			 		$('.error_ca_id_oficina').html('*Requerido');
+			 	if($('#ca_hora_inicio').val() == ''){
+			 		$('.error_ca_hora_inicio').html('*Requerido');
 			 		ban = false;
 			 	}else{
-			 		$('.error_ca_id_oficina').html('');
-			 	}
-			 	if($('#ca_horario_inicio').val() == ''){
-			 		$('.error_ca_horario_inicio').html('*Requerido');
-			 		ban = false;
-			 	}else{
-			 		$('.error_ca_horario_inicio').html('');
-			 		if($('#ca_horario_fin').val() == ''){
-				 		$('.error_ca_horario_fin').html('*Requerido');
+			 		$('.error_ca_hora_inicio').html('');
+			 		if($('#ca_hora_fin').val() == ''){
+				 		$('.error_ca_hora_fin').html('*Requerido');
 				 		ban = false;
 				 	}else{
-				 		$('.error_ca_horario_fin').html('');
+				 		$('.error_ca_hora_fin').html('');
 				 	}
 			 	}
 			 	return ban;
