@@ -211,11 +211,11 @@
 		  	}
 
 		  	//validando que la contraseña se encuentre bien escrita
-			var expreg_pass = /^[A-Z]{1}[a-z0-9]{5,8}[&$#_?¡()=]{1}$/;
+			var expreg_pass = /^[A-Z]{1}[a-z]{3,7}[0-9]{1}[&$#_@.]{1}$/;
 		  	if(expreg_pass.test(us_contrasenia.trim())){
 		        $(".error_us_contrasenia").html('');
 		    }else{
-		        $(".error_us_contrasenia").html('La contraseña debe contener la primera letra mayuscula, el ultimo caracter debe ser caracter y deben ser 7 a 10 digitos.');
+		        $(".error_us_contrasenia").html('La contraseña debe contener la primera letra mayuscula, seguido de 3 a 7 letras minusculas, 1 numero y 1 de los siguientes simbolos &$#_@., y puede ser de 6 a 10 digitos.');
 		  		band = 2;
 		    }
 		    

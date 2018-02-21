@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
-		<title>MIA OFFICE - PANEL</title>
+		<title>QUADRA TOWERS - PANEL</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -38,134 +38,6 @@
 	    </style>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script src="<?= plugin_url(); ?>jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
-		<script>
-		/*$( document ).ready(function() {
-			var $modal 		 = $('#agregar-eventoModal');
-			var $modalEditar = $('#editar-eventoModal'); 
-			var event = [];
-			$.ajax({
-	            type: 'POST',
-			    url: '<?= base_url(); ?>calendario/getEventos',
-			    dataType: 'json',
-			    success: function(resp) {
-			        $.each(resp, function(k,v){
-			        	event.push({
-			        		id: v.id_evento,
-			            	title: v.ca_titulo,
-				            start: v.ca_fecha_inicio,
-				            end: v.ca_fecha_fin
-				        });
-				    });		            	              
-			    
-	        		var calendar = $('#calendar').fullCalendar({
-	        			monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-						monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-						dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
-						dayNamesShort: ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],
-	            		buttonText: {
-	                	prev: '<i class="fa fa-chevron-left"></i>',
-	                	next: '<i class="fa fa-chevron-right"></i>'
-	            		},
-			            /*header: {
-			                left: 'prev,next today',
-			                center: 'title',
-			                right: 'month,agendaWeek,agendaDay'
-			            },
-			            events: event,
-			            selectable: true,
-			            selectHelper: true,
-			            select: function (start, end, allDay) {
-			            	$modal.modal('show');
-
-			            	$('#ca_fecha_inicio').val(dateFormat(start));
-			            	$('#ca_fecha_fin').val(dateFormat(end));
-
-			            	$('.guardar-evento').click(function(){
-			            		if(validarEvento()){
-			            			var title = $('#ca_titulo').val();
-			            			$.ajax({
-			            				type: 'POST',
-							            url:  $("#formulario_evento").attr('action'),
-							            data: $("#formulario_evento").serialize(),
-							            dataType: 'json',
-							            success: function(resp){
-							            	if(resp){
-							            		calendar.fullCalendar('renderEvent', {
-							            			id: resp,
-					                                title: title,
-					                                start: start,
-					                                end: end,
-					                                allDay: allDay,
-					                                //className: $categoryClass
-					                            }, true); // make the event "stick"
-					                            $("#formulario_evento")[0].reset();
-			            						$modal.modal('hide');
-							            	}else{
-
-							            	}
-							            }
-			            			});
-			            		}
-			            	});
-			            },
-			            eventClick: function (calEvent, jsEvent, view) {
-			            	$.ajax({
-			            		type: 'POST',
-							    url:  '<?= base_url(); ?>calendario/getEventoId',
-							    data: 'id_evento='+calEvent._id,
-							    dataType: 'json',
-							    	success: function(resp){
-							    		$('#ca_titulo_editar').val(resp.ca_titulo);
-							    		$('#ca_id_oficina_editar option[value="'+resp.ca_id_oficina+'"]').attr("selected", "selected");
-							    		$('#ca_hora_inicio_editar, .horaInicioEditar').val(timeFormat(resp.ca_hora_inicio));
-							    		$('#ca_hora_fin_editar, .horaFinEditar').val(timeFormat(resp.ca_hora_fin));
-							    		$modalEditar.modal('show');
-							    		$('#id_evento_editar').val(resp.id_evento);
-							    	}
-			            		});
-			            	$('.editar-evento').click(function(){
-			            		calEvent.title = $('#ca_titulo_editar').val();
-			            		$.ajax({
-			            			type: 'POST',
-							        url:  $("#formulario_editar_evento").attr('action'),
-							        data: $("#formulario_editar_evento").serialize(),
-							        dataType: 'json',
-							        success: function(resp){
-							        	if(resp){
-							            	calendar.fullCalendar('updateEvent', calEvent);
-			            					$modalEditar.modal('hide');
-			            				}else{
-
-			            				}
-							        }
-							    });
-			            	});
-			            	$('.eliminar-evento').click(function(){
-			            		$.ajax({
-			            			type: 'POST',
-							        url:  '<?= base_url(); ?>calendario/eliminar_evento',
-							        data: 'id_evento='+calEvent._id,
-							        dataType: 'json',
-							        success: function(resp){
-							        	if(resp){
-						            		calendar.fullCalendar('removeEvents', function (ev) {
-						            			alert(calEvent.id);
-						                        return (ev._id == calEvent._id);
-			                    			});
-			                    			$modalEditar.modal('hide');
-			                    		}else{
-
-			                    		}
-			                    	}
-			                    });
-			            	});
-			            }
-		        	});
-	        	}
-			});
-		});
-        	
-		</script>
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
@@ -175,7 +47,7 @@
 						<span class="clip-list-2"></span>
 					</button>
 					<a class="navbar-brand" href="<?= base_url(); ?>panel/inicio">
-						MIA OFFICE
+						Quadra Towers Renta de Espacios
 					</a>
 				</div>
 				<div class="navbar-tools">
@@ -207,30 +79,30 @@
 							<a href="<?= base_url(); ?>panel/inicio"><i class="clip-home-3"></i>
 								<span class="title"> Inicio</span>
 							</a>
-						</li class="active open">
-						<li>
+						</li>
+						<li >
 							<a href="<?= base_url(); ?>us_usuarios"><i class="clip-user-2"></i>
 								<span class="title"> Usuarios</span>
 							</a>
 						</li>
 						<li>
-							<a href="<?= base_url(); ?>cl_clientes"><i class="clip-users"></i>
-								<span class="title"> Clientes</span>
+							<a href="<?= base_url(); ?>ub_ubicaciones"><i class="clip-location"></i>
+								<span class="title"> Direcciones</span>
 							</a>
 						</li>
 						<li>
 							<a href="<?= base_url(); ?>of_oficinas"><i class="fa fa-building-o"></i>
-								<span class="title"> Oficinas</span>
-							</a>
-						</li>
-						<li>
-							<a href="<?= base_url(); ?>ub_ubicaciones"><i class="clip-location"></i>
-								<span class="title"> Ubicaciones</span>
+								<span class="title"> Espacios</span>
 							</a>
 						</li>
 						<li class="active open">
 							<a href="<?= base_url(); ?>calendario"><i class="clip-calendar"></i>
 								<span class="title"> Calendario</span>
+							</a>
+						</li>
+						<li>
+							<a href="<?= base_url(); ?>cl_clientes"><i class="clip-users"></i>
+								<span class="title"> Clientes</span>
 							</a>
 						</li>
 					</ul>
@@ -257,13 +129,20 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-3">
-						<label>Seleccionar Calendario de Oficina</label>
-						<select class="form-control" id="ca_id_oficina">
-							<option value="0">Seleccionar Oficina</option>
-							<?php foreach ($oficinas as $row): ?>
-								<option value="<?= $row->of_id_oficina; ?>" clave="<?= $row->of_nombre; ?>"><?= $row->of_nombre; ?></option>
-							<?php endforeach; ?>
-						</select>
+							<label>Seleccionar Dirección</label>
+							<select class="form-control" id="ca_id_ubicacion">
+								<option value="0">Seleccionar Dirección</option>
+								<?php foreach ($direcciones as $row): ?>
+									<option value="<?= $row->ub_id_ubicacion; ?>" clave="<?= $row->ub_nombre; ?>"><?= $row->ub_nombre; ?></option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+
+						<div class="col-xs-12 col-sm-3">
+							<label>Seleccionar Espacio</label>
+							<select class="form-control" id="ca_id_oficina">
+								<option value="0">Seleccionar Espacio</option>
+							</select>
 						</div>
 					</div>
 					<hr>
@@ -300,12 +179,7 @@
 						 <form id="formulario_evento" action="<?= base_url(); ?>calendario/ejecutar_registrar_evento" method="post" accept-charset="utf-8" enctype="multipart/form-data" autocomplete="off">
 						<div class="row">
 							<input type="hidden" class="ca_id_oficina" name="ca_id_oficina">
-							<!-- Titulo -->
-							<div class="col-sm-12">
-								<label class="control-label">Titulo</label>
-							    <input type="text" placeholder="titulo" name="ca_titulo" class="form-control" id="ca_titulo" required >
-							    <span class="pull_center error_ca_titulo" style="color:red;"></span>
-							</div>
+							<input type="hidden" class="ca_id_ubicacion" name="ca_id_ubicacion">
 							<!-- hora Inicio -->
 							<div class="col-sm-6">
 								<label class="control-label">hora Inicio</label>
@@ -354,12 +228,6 @@
 
 
 						<div class="row">
-							<!-- Titulo -->
-							<div class="col-sm-12">
-								<label class="control-label">Titulo</label>
-							    <input type="text" placeholder="titulo" name="ca_titulo_editar" class="form-control" id="ca_titulo_editar" required >
-							    <span class="pull_center error_ca_titulo_editar" style="color:red;"></span>
-							</div>
 							<!-- hora Inicio -->
 							<div class="col-sm-6">
 								<label class="control-label">hora Inicio</label>
@@ -421,6 +289,27 @@
 		<script src="<?= js_url(); ?>jquery-confirm.min.js"></script>
 		<script src="<?= js_url(); ?>jquery.timepicker.min.js"></script>
 		<script>
+			$('#ca_id_ubicacion').change(function(){
+				var ca_id_ubicacion = $(this).val();
+				if(ca_id_ubicacion!=0){
+					$.ajax({
+						type:'post',
+						url:'<?= base_url(); ?>calendario/getEspacios',
+						data:'of_id_ubicacion='+ca_id_ubicacion,
+						dataType: 'json',
+						success: function(resp){
+							$('#ca_id_oficina').html('<option value="0">Seleccionar Espacio</option>');
+							$.each(resp, function(k,v){
+								$('#ca_id_oficina').append('<option value="'+v.of_id_ubicacion+'" clave="'+v.of_nombre+'">'+v.of_nombre+'</option>')
+							});
+						}
+					});
+				}else{
+					$('#ca_id_oficina').html('<option value="0">Seleccionar Espacio</option>');
+				}
+			});
+
+
 			$(document).ready(function() {
 				Main.init();
 
@@ -429,22 +318,40 @@
 
 				$('#ca_id_oficina').change(function(){
 					var ca_id_oficina = $(this).val();
-					var oficina = $("#ca_id_oficina option:selected").attr('clave');
+					var ca_id_ubicacion = $('#ca_id_ubicacion').val();
+					var espacio = $("#ca_id_oficina option:selected").attr('clave');
+					var direcion = $('#ca_id_ubicacion option:selected').attr('clave');
 					var event = [];
 					var calendar = $('#calendario').html('');
 					if(ca_id_oficina != 0){
 						$.ajax({
 				            type: 'POST',
 						    url: '<?= base_url(); ?>calendario/getEventos',
-						    data: 'ca_id_oficina='+ca_id_oficina,
+						    data: 'ca_id_oficina='+ca_id_oficina+'&ca_id_ubicacion='+ca_id_ubicacion,
 						    dataType: 'json',
 						    success: function(resp) {
-						        $.each(resp, function(k,v){
+						        $.each(resp.calendario, function(k,v){
 						        	event.push({
 						        		id: v.id_evento,
-						            	title: v.ca_titulo,
+						            	title: 'Disponible para reserva',
 							            start: v.ca_fecha_inicio,
-							            end: v.ca_fecha_fin
+							            end: v.ca_fecha_fin,
+							            className: 'label-green'
+							        });
+							    });
+							    var cliente = '';
+							    $.each(resp.reservacion, function(k,v){
+							    	if(v.re_id_cliente == 0){
+							    		cliente = 'Invitado';
+							    	}else{
+							    		cliente = v.cl_nombre+' '+v.cl_apellido_paterno;
+							    	}
+						        	event.push({
+						        		id: 0,
+						            	title: cliente+' Reservación: '+timeFormat(v.re_hora_inicio)+'-'+timeFormat(v.re_hora_fin),
+							            start: v.re_fecha,
+							            end: v.re_fecha,
+							            className: 'label-blue'
 							        });
 							    });
 							    calendar = $('#calendario').fullCalendar({
@@ -468,8 +375,9 @@
 						        selectHelper: true,
 						        select: function (start, end, allDay) {
 						        	$modal.modal('show');
-						        	$('.add-event').html('Agregar Evento, Oficina: '+oficina);
+						        	$('.add-event').html('Agregar Evento, Dirección: '+direcion+' / Espacio: '+espacio);
 						        	$('.ca_id_oficina').val(ca_id_oficina);
+						        	$('.ca_id_ubicacion').val(ca_id_ubicacion);
 						            $('#ca_fecha_inicio').val(dateFormat(start));
 						            $('#ca_fecha_fin').val(dateFormat(end));
 
@@ -485,7 +393,7 @@
 										            	if(resp){
 										            		calendar.fullCalendar('renderEvent', {
 										            			id: resp,
-								                                title: title,
+								                                title: 'Disponible para reserva',
 								                                start: start,
 								                                end: end,
 								                                allDay: allDay,
@@ -502,13 +410,13 @@
 						            	});
 						            },
 						            eventClick: function (calEvent, jsEvent, view) {
+						            	if(calEvent._id != 0){
 						            	$.ajax({
 						            		type: 'POST',
 										    url:  '<?= base_url(); ?>calendario/getEventoId',
 										    data: 'id_evento='+calEvent._id,
 										    dataType: 'json',
 										    	success: function(resp){
-										    		$('#ca_titulo_editar').val(resp.ca_titulo);
 										    		$('#ca_id_oficina_editar option[value="'+resp.ca_id_oficina+'"]').attr("selected", "selected");
 										    		$('#ca_hora_inicio_editar, .horaInicioEditar').val(timeFormat(resp.ca_hora_inicio));
 										    		$('#ca_hora_fin_editar, .horaFinEditar').val(timeFormat(resp.ca_hora_fin));
@@ -516,6 +424,7 @@
 										    		$('#id_evento_editar').val(resp.id_evento);
 										    	}
 						            		});
+						            	}
 						            	$('.editar-evento').click(function(){
 						            		calEvent.title = $('#ca_titulo_editar').val();
 						            		$.ajax({

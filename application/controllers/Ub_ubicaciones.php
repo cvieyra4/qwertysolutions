@@ -38,7 +38,8 @@ class ub_ubicaciones extends CI_Controller {
 	public function ejecutar_registrar_nueva_ubicacion(){
 
 		$this->usuariosModel->usuario_activo_o_inactivo();
-		$this->form_validation->set_rules('ub_calle', 			'calle',  		   'required|xss_clean'); 
+		$this->form_validation->set_rules('ub_nombre', 			'Nombre',  		   'required|xss_clean'); 
+		$this->form_validation->set_rules('ub_calle', 			'Calle',  		   'required|xss_clean'); 
 		$this->form_validation->set_rules('ub_numero_exterior', 'Número Exterior', 'required|numeric|xss_clean'); 
 		$this->form_validation->set_rules('ub_numero_interior', 'Número Interior', 'xss_clean');
 		$this->form_validation->set_rules('ub_colonia', 		'Colonia', 		   'required|xss_clean');
@@ -66,6 +67,8 @@ class ub_ubicaciones extends CI_Controller {
 		$ub_id_ubicacion = $this->input->post('id');
 
 		$this->usuariosModel->usuario_activo_o_inactivo();
+		$this->form_validation->set_rules('ub_nombre', 			'Nombre',  		   'required|xss_clean'); 
+		$this->form_validation->set_rules('ub_calle', 			'Calle',  		   'required|xss_clean');
 		$this->form_validation->set_rules('ub_calle', 			'calle',  		   'required|xss_clean'); 
 		$this->form_validation->set_rules('ub_numero_exterior', 'Número Exterior', 'required|numeric|xss_clean'); 
 		$this->form_validation->set_rules('ub_numero_interior', 'Número Interior', 'xss_clean');

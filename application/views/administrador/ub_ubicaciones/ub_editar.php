@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
-		<title>Mia Office | Editar Ubicación</title>
+		<title>Mia Office | Editar Dirección</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="page-header">
-						<h1>Editar Ubicación</h1>
+						<h1>Editar Dirección</h1>
 					</div>
 				</div>
 			</div>
@@ -54,14 +54,22 @@
 							
 							<div class="form-group">
 								<!-- Nombre -->
-								<div class="col-xs-12 col-sm-3">
+								<div class="col-xs-12 col-sm-4">
+									<label class="control-label" >* Nombre</label>
+									<input type="text" placeholder="Nombre" name="ub_nombre" id="ub_nombre" class="form-control" 
+									value="<?= isset($ubicacion)?$ubicacion->ub_nombre:set_value('ub_nombre'); ?>">
+									<span class="pull-center error_ub_nombre" style="color: red">
+										<?= form_error('ub_cnombre'); ?></span>
+								</div>
+								<!-- Calle -->
+								<div class="col-xs-12 col-sm-4">
 									<label class="control-label" >* Calle</label>
 									<input type="text" placeholder="Calle" name="ub_calle" id="ub_calle" class="form-control" value="<?= isset($ubicacion)?$ubicacion->ub_calle:set_value('ub_calle'); ?>">
 									<span class="pull-center error_ub_calle" style="color: red">
 										<?= form_error('ub_calle'); ?></span>
 								</div>
 								<!-- Nº Exterior -->
-								<div class="col-xs-12 col-sm-3">
+								<div class="col-xs-12 col-sm-4">
 									<label class="control-label">* Nº Exterior</label>
 									<input type="number" placeholder="Nº Exterior" name="ub_numero_exterior" 
 									id="ub_numero_exterior" class="form-control" onkeypress="return SoloNumeros(event);" 
@@ -70,7 +78,7 @@
 										<?= form_error('ub_numero_exterior'); ?></span>
 								</div>
 								<!-- Nº Interior -->
-								<div class="col-xs-12 col-sm-3">
+								<div class="col-xs-12 col-sm-4">
 									<label class="control-label">Nº Interior</label>
 									<input type="text" placeholder="Nº Interior" name="ub_numero_interior" 
 									id="ub_numero_interior" class="form-control" 
@@ -79,7 +87,7 @@
 										<?= form_error('ub_numero_interior'); ?></span>
 								</div>
 								<!-- Colonia -->
-								<div class="col-xs-12 col-sm-3">
+								<div class="col-xs-12 col-sm-4">
 									<label class="control-label">* Colonia</label>
 									<input type="text" placeholder="Correo" name="ub_colonia" id="ub_colonia" class="form-control" value="<?= isset($ubicacion)?$ubicacion->ub_colonia:set_value('ub_colonia'); ?>">
 									<span class="pull-center error_ub_colonia" style="color: red">
@@ -87,7 +95,7 @@
 								</div>
 
 								<!-- Codigo Postal -->
-								<div class="col-xs-12 col-sm-3">
+								<div class="col-xs-12 col-sm-4">
 									<label class="control-label">* C.P.</label>
 									<input type="text" placeholder="C.P." name="ub_codigo_postal" id="ub_codigo_postal" class="form-control" data-inputmask='"mask": "99999"' data-mask 
 									onkeypress="return SoloNumeros(event);" 
@@ -134,7 +142,7 @@
 		function validaciongeneral(){
 		 	var band  = 0; 
 			var req = "Requerido";
-
+			var ub_nombre 			=  $('#ub_nombre').val();
 			var ub_calle            =  $('#ub_calle').val();
 			var ub_numero_exterior  =  $('#ub_numero_exterior').val();
 		    var ub_colonia          =  $('#ub_colonia').val();
@@ -142,11 +150,13 @@
 			
 		    
 		if(
+			ub_nombre.trim() !="" &&
 			ub_calle.trim() !="" && 
 		  	ub_numero_exterior.trim() != "" && 
 		  	ub_colonia.trim() != "" &&
 		    ub_codigo_postal.trim() != ""  
 		){
+			$(".error_ub_nombre").text("");
 		  	$(".error_ub_calle").text("");
 		  	$(".error_ub_numero_exterior").text("");
 		  	$(".error_ub_colonia").text("");
@@ -183,11 +193,13 @@
 		}
 		
 		if (
+			ub_nombre.trim() == "" && 
 		    ub_calle.trim() == "" && 
 		    ub_numero_exterior.trim() == "" && 
 		    ub_colonia.trim() == "" && 
 		    ub_codigo_postal.trim() == ""  
 		){
+			$(".error_ub_nombre").text(req)
 		    $(".error_ub_calle").text(req);
 		    $(".error_ub_numero_exterior").text(req);
 		    $(".error_ub_colonia").text(req);
@@ -196,11 +208,15 @@
 		    return false;	
 		}
 		if (
+			ub_nombre.trim() == "" || 
 			ub_calle.trim() == "" || 
 		    ub_numero_exterior.trim() == "" || 
 		    ub_colonia.trim() == "" || 
 		    ub_codigo_postal.trim() == ""   
 		){
+			if(ub_cnombre.trim() == "")$(".error_ub_nombre").text(req);
+		        else $(".error_ub_nombre").text("");
+			
 		    if(ub_calle.trim() == "")$(".error_ub_calle").text(req);
 		        else $(".error_ub_calle").text("");
 

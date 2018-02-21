@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
-		<title>MIA OFFICE - PANEL</title>
+		<title>QUADRA TOWERS - PANEL</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,7 +28,7 @@
 						<span class="clip-list-2"></span>
 					</button>
 					<a class="navbar-brand" href="<?= base_url(); ?>panel/inicio">
-						MIA OFFICE
+						Quadra Towers Renta de Espacios
 					</a>
 				</div>
 				<div class="navbar-tools">
@@ -61,29 +61,29 @@
 								<span class="title"> Inicio</span>
 							</a>
 						</li>
-						<li>
+						<li >
 							<a href="<?= base_url(); ?>us_usuarios"><i class="clip-user-2"></i>
 								<span class="title"> Usuarios</span>
 							</a>
 						</li>
 						<li>
-							<a href="<?= base_url(); ?>cl_clientes"><i class="clip-users"></i>
-								<span class="title"> Clientes</span>
+							<a href="<?= base_url(); ?>ub_ubicaciones"><i class="clip-location"></i>
+								<span class="title"> Direcciones</span>
 							</a>
 						</li>
 						<li class="active open">
 							<a href="<?= base_url(); ?>of_oficinas"><i class="fa fa-building-o"></i>
-								<span class="title"> Oficinas</span>
-							</a>
-						</li>
-						<li>
-							<a href="<?= base_url(); ?>ub_ubicaciones"><i class="clip-location"></i>
-								<span class="title"> Ubicaciones</span>
+								<span class="title"> Espacios</span>
 							</a>
 						</li>
 						<li>
 							<a href="<?= base_url(); ?>calendario"><i class="clip-calendar"></i>
 								<span class="title"> Calendario</span>
+							</a>
+						</li>
+						<li>
+							<a href="<?= base_url(); ?>cl_clientes"><i class="clip-users"></i>
+								<span class="title"> Clientes</span>
 							</a>
 						</li>
 					</ul>
@@ -114,7 +114,7 @@
 							
 							<a href="<?= base_url(); ?>of_oficinas/agregar_oficina">
 							<button type="button" class="btn btn-light-grey">
-								<i class="clip-plus-circle-2"></i> Oficina
+								<i class="clip-plus-circle-2"></i> Espacio
 							</button>
 							</a>
 							<?php } ?>
@@ -141,12 +141,12 @@
 									<thead>
 										<tr>
 											<th>ID</th>
-											<th>Oficina</th>
+											<th>Nombre de espacio</th>
 											<th>Precio</th>
 											<th>Ubicación</th>
 											<th>Status</th>
 											<?php if($this->session->userdata('us_nivel_usuario') == 'Administrador') { ?>
-											<th>Action</th>
+											<th>Acción</th>
 											<?php } ?>
 										</tr>
 									</thead>
@@ -156,15 +156,7 @@
 											<td><?= $row->of_id_oficina; ?></td>
 											<td><?= $row->of_nombre; ?></td>
 											<td>$<?= number_format($row->of_precio,2,'.',','); ?></td>
-											<td><?php 
-											$num_int = '';
-											if(isset($row->ub_numero_interior )){
-												$num_int = $row->ub_numero_interior;
-											}
-											$direccion = $row->ub_calle.' #'.$row->ub_numero_exterior.$num_int.' '.$row->ub_colonia.' C.P. '.$row->ub_codigo_postal;
-
-											echo $direccion;
-											?></td>
+											<td><?= $row->ub_nombre; ?></td>
 											<td><?= $row->of_status==1?"Activo":"Inactivo";?></td>
 											<td>
 												<?php if($this->session->userdata('us_nivel_usuario') == 'Administrador') {

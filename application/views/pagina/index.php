@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Mia Office</title>
+		<title>Quadra Towers</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -92,48 +92,74 @@
 						</div>
 						<div class="col-md-4">
 							<div class="col-md-12">
-								<label>Oficina a reservar</label>
-								<select id="re_id_oficina" class="form-control">
-									<option value="0">Elegir</option>
-									<?php foreach ($oficinas as $row): ?>
-									<option value="<?= $row->of_id_oficina; ?>" oficina="<?= $row->of_nombre; ?>" precio="<?= $row->of_precio; ?>"><?= $row->of_nombre; ?></option>
+								<label>Ubicación donde se desea reservar</label>
+								<select class="form-control re_id_ubicacion">
+									<option value="0">Elegir ubicación</option>
+									<?php foreach ($ubicaciones as $row): ?>
+									<option value="<?= $row->ub_id_ubicacion; ?>" ubicacion="<?= $row->ub_nombre; ?>"><?= $row->ub_nombre; ?></option>
 									<?php endforeach; ?>
 								</select>
 							</div>
-							<div class="col-md-12 calendario" style="display: none;">
+							<div class="col-md-12">
+								<label>Espacio a reservar</label>
+								<select class="form-control re_id_oficina">
+									<option value="0">Elegir espacio</option>
+								</select>
+							</div>
+							<div class="col-md-12 calendario">
 								<label>Fecha de Reservación</label>
-								<input type="text" readonly="readonly" class="form-control fechasDisponibles">
+								<input type="text" class="form-control fechasDisponibles" data-inputmask="'mask': '99/99/9999'" placeholder="dd/mm/yyyy" >
 								<span class="mensaje" style="color:red;"></span>
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="col-md-12 horario" style="display: none;">
-								<label>Hora Inicio</label>
-								<input type="text" class="form-control horaInicio">
+							<div class="col-md-12">
+								<label>Duración del evento</label>
+								<select class="form-control dura_horas">
+									<option value="">Duración del evento</option>
+								</select>
 							</div>
-							<div class="col-md-12 cantidadHoras" style="display: none;">
+							<div class="col-md-12">
+								<label>Horario</label>
+								<select class="form-control horario">
+									<option value="0">Elegir un horario</option>
+								</select>
+							</div>
+
+							<div class="col-md-12 form-group">
+								<button type="button" class="btn btn-success btn-reservar" style="margin-top: 1.6em; display: none;">Reservar</button>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<h3>Detalle de la reservación</h3>
-							<table>
+							<table id="example">
 								<tbody>
 									<tr>
+										<td>Ubicación: </td>
+										<td class="ubicacion"></td>
+									</tr>
+									<tr>
+										<td>Espacio: </td>
 										<td class="oficina"></td>
 									</tr>
 									<tr>
+										<td>Fecha: </td>
 										<td class="fecha_reserva"></td>
 									</tr>
 									<tr>
-										<td class="hora_inicio"></td>
-									</tr>
-									<tr>
-										<td class="hora_final"></td>
-									</tr>
-									<tr>
+										<td>Nº Horas: </td>
 										<td class="cantidad_horas"></td>
 									</tr>
 									<tr>
+										<td>Hora Inicio: </td>
+										<td class="hora_inicio"></td>
+									</tr>
+									<tr>
+										<td>Hora Final: </td>
+										<td class="hora_final"></td>
+									</tr>
+									<tr>
+										<td>Precio x Hora: </td>
 										<td class="precio_horas"></td>
 									</tr>
 								</tbody>
@@ -209,8 +235,10 @@
 		<script src="<?= plugin_url(); ?>moment/moment.js"></script>
 		<script src="<?= plugin_url(); ?>datepicker/js/bootstrap-datepicker.min.js"></script>
 		<script src="<?= plugin_url(); ?>clockpicker/dist/bootstrap-clockpicker.min.js"></script>
+		<script src="<?= plugin_url();?>input-mask/jquery.inputmask.js"></script>
+		<script src="<?= plugin_url();?>input-mask/jquery.inputmask.date.extensions.js"></script>
+		<script src="<?= plugin_url();?>input-mask/jquery.inputmask.extensions.js"></script>		
 		<script src="<?= js_url(); ?>jquery.timepicker.min.js"></script>
-
 		<script>
 			jQuery(document).ready(function() {
 				Main.init();
@@ -272,136 +300,209 @@
 	          months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
 	          monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
 	      	};
+	      	var date = dateFormat(new Date());
+	      	//Datemask dd/mm/yyyy
+    		$(".fechasDisponibles").inputmask("dd/mm/yyyy");
+	      	$('.fechasDisponibles').datepicker({
+				format: 'dd/mm/yyyy',
+				language: 'es-Es',
+				autoclose: true,
+				startDate: date,
+				orientation: 'bottom'
+			});
 
-			var re_id_oficina;
-			var precio;
-			var date = dateFormat(new Date());
-			$('#re_id_oficina').change(function(){
-				re_id_oficina = $(this).val();
-				var oficina = $('#re_id_oficina option:selected').attr('oficina');
-				precio = $('#re_id_oficina option:selected').attr('precio');
-				if(re_id_oficina != 0){
-					$('.calendario').show();
-					$('.fechasDisponibles').datepicker({
-						format: 'dd/mm/yyyy',
-						language: 'es-Es',
-						autoclose: true,
-						startDate: date,
-						orientation: 'bottom'
+			$('.re_id_ubicacion').change(function(){
+				var re_id_ubicacion = $(this).val();
+				var ubicacion = $('.re_id_ubicacion option:selected').attr('ubicacion');
+
+				if(re_id_ubicacion != 0){
+					$('.ubicacion').html(ubicacion);
+					$.ajax({
+						type: 'post',
+						url: '<?= base_url(); ?>sitio_web/getEspacios',
+						data: 're_id_ubicacion='+re_id_ubicacion,
+						dataType: 'json',
+						success: function(resp){
+							$('.re_id_oficina').html('<option value="0">Elegir espacio</option>');
+							$.each(resp, function(k,v){
+								$('.re_id_oficina').append('<option value="'+v.of_id_oficina+'" oficina="'+v.of_nombre+'" precio="'+v.of_precio+'">'+v.of_nombre+'</option>');
+							});
+						}
 					});
-					$('.oficina').html('<label>Oficina: '+oficina+'</label>');
-					$('.precio_horas').html('<label>Precio X Hora: $'+precio+'</label>');
 				}else{
-					$('.calendario').hide();
-					$('.horario').hide();
-					$('.fechasDisponibles').val('');
-					$('.mensaje').html('');
-					$('.oficina').html('');
-					$('.cantidadHoras').hide();
+					$('.re_id_oficina').html('<option value="0">Elegir espacio</option>');
+					$('.ubicacion').html('');
 				}
 			});
+
+			$('.re_id_oficina').change(function(){
+				var re_id_oficina = $(this).val();
+				var oficina = $('.re_id_oficina option:selected').attr('oficina');
+				if(re_id_oficina != 0){
+					$('.oficina').html(oficina);
+				}else{
+					$('.oficina').html('');
+				}	
+			});
+			
 
 			$('.fechasDisponibles').change(function(){
 				var fecha = $(this).val();
+				var re_id_ubicacion = $('.re_id_ubicacion').val();
+				var re_id_oficina = $('.re_id_oficina').val();
 				
-				if(fecha != ''){ 
-					$.ajax({
-						type: 'POST',
-						url: '<?=base_url(); ?>sitio_web/getFechasDisponibles',
-						data: 're_id_oficina='+re_id_oficina+'&re_fecha='+fecha,
-						dataType: 'json',
-						success: function(resp){
-							if(resp.calendario == null){
-								$('.mensaje').html('Lo sentimos no contamos con algún horario disponible');
-								$('.horario').hide();
-								$('.cantidadHoras').hide();
-								$('.fecha_reserva').html('');
-							}else{
-								$('.fecha_reserva').html('<label>Fecha: '+fecha+'</label>');
+				if(re_id_ubicacion != 0){
+					if(re_id_oficina != 0){
+						if(fecha != ''){ 
+							$.ajax({
+								type: 'POST',
+								url: '<?=base_url(); ?>sitio_web/getFechasDisponibles',
+								data: 're_id_ubicacion='+re_id_ubicacion+'&re_id_oficina='+re_id_oficina+'&re_fecha='+fecha,
+								dataType: 'json',
+								success: function(resp){
+									if(resp.c == null){
+										$('.mensaje').html('Lo sentimos no contamos con algún horario disponible');
+										$('.fecha_reserva').html('');
+									}else{
+										$('.fecha_reserva').html(fecha);
+										$('.mensaje').html('');
+										var horaIni = timeFormat(resp.c.ca_hora_inicio);
+										horaIni = horaIni.split(':');
+										var horaFin = timeFormat(resp.c.ca_hora_fin);
+										horaFin = horaFin.split(':');
+										var numeroHoras = parseFloat(horaFin[0])-parseFloat(horaIni[0]);
+										var i= 1;
+										$('.dura_horas').html('<option value="0">Duración del evento</option>');	
+										for(i; i<=numeroHoras; i++){
+											$('.dura_horas').append('<option value="'+i+'">'+i+'</option>');
+										}
+										
+									}
 
-								var horasReserva = [];
-								$.each(resp.reservacion, function(k,v){
-						        	horasReserva.push([timeFormat(v.re_hora_inicio), timeFormat(v.re_hora_fin)]);
-							    });
-
-								var horaInicio = timeFormat(resp.calendario.ca_hora_inicio);
-								var horaFin = timeFormat(resp.calendario.ca_hora_fin);
-								var numeroHoras = parseInt(horaFin) - parseInt(horaInicio);
-
-								var i= 1;
-								var option = '';
-								for(i; i<=numeroHoras; i++){
-									option += '<option value="'+i+'">'+i+'</option>';
-								}
-
-								$('.cantidadHoras').html(''+
-									'<label>Cantidad de horas</label>'+
-									'<select id="cant_hor" class="form-control" onchange="getTime();">'+
-									'<option value="0">Elegir Nº Hora</option>'+
-									option+
-									'</select>');
-
-								$('.cantidadHoras').show();
-
-								$('.mensaje').html('');
-								$('.horario').show();
-								$('.horaInicio').html('');
-								$('.horaInicio').timepicker({
-									timeFormat: 'G:i',
-									show2400: true,
-									step: 60,
-									'minTime': horaInicio,
-									'maxTime': horaFin,
-									'disableTimeRanges': horasReserva,
-
-								});
-								
-							}
-
-						}			
-					});
+								}			
+							});
+						}
+					}else{
+						$.alert({
+							title: 'Favor de seleccionar un espacio',
+				        	theme: 'modern',
+				        	icon: 'fa fa-exclamation-circle',
+	          				animation: 'scale',
+				        	type: 'red',
+				        	content: '',
+				        	buttons: {
+					          ok: {
+					            text: 'Aceptar',
+					            btnClass: 'btn-blue',
+					            action: function () {
+					            	$('.fechasDisponibles').val('');
+					            }
+					          }
+					        }
+			    		});
+					}
+				}else{
+					$.alert({
+							title: 'Favor de seleccionar una ubicación',
+				        	theme: 'modern',
+				        	icon: 'fa fa-exclamation-circle',
+	          				animation: 'scale',
+				        	type: 'red',
+				        	content: '',
+				        	buttons: {
+					          ok: {
+					            text: 'Aceptar',
+					            btnClass: 'btn-blue',
+					            action: function () {
+					            	$('.fechasDisponibles').val('');
+					            }
+					          }
+					        }
+			    		});
 				}
 			});
 
-		$('.horaInicio').change(function(){
-			var horaInicio = $(this).val();
-			$('.hora_inicio').html('<label>Hora Incio: '+horaInicio+'</label>');
+			$('.dura_horas').change(function(){
+				var fecha = $('.fechasDisponibles').val();
+				var re_id_ubicacion = $('.re_id_ubicacion').val();
+				var re_id_oficina = $('.re_id_oficina').val();
+				var dura_horas = $('.dura_horas').val();
 
-		});
+				if(dura_horas != 0){
+					$('.cantidad_horas').html(dura_horas+' hr(s)');
+					$('.hora_inicio').html('');
+					$('.hora_final').html('');
+					$.ajax({
+						type: 'POST',
+						url: '<?=base_url(); ?>sitio_web/getFechasDisponibles',
+						data: 're_id_ubicacion='+re_id_ubicacion+'&re_id_oficina='+re_id_oficina+'&re_fecha='+fecha,
+						dataType: 'json',
+						success: function(resp){
+							var horaIni = timeFormat(resp.c.ca_hora_inicio);
+							horaIni = horaIni.split(':');
+							var horaFin = timeFormat(resp.c.ca_hora_fin);
+							horaFin = horaFin.split(':');
 
-		function getTime(){
-			var cantidadHoras = $('#cant_hor').val();
-			var hora = $('.horaInicio').val();
-			hora = hora.split(':');
-			var horaInicio = hora[0]+':'+hora[1];
-			var horaFin = parseFloat(hora[0])+parseInt(cantidadHoras);
-			var precio_final = parseFloat(cantidadHoras) * parseFloat(precio);
-			if(cantidadHoras != 0){	
-				$('.hora_inicio').html('<label>Hora Incio: '+horaInicio+'</label>');
-				$('.hora_final').html('<label>Hora Fin: '+horaFin+':'+hora[1]+'</label>');
-				$('.cantidad_horas').html('<label>Nº Horas: '+cantidadHoras+'</label>');
-				$('.precio_horas').html('<label>Precio X Hora: $'+precio_final+'</label>');
-				$('.reservar').html('<button type="button" class="btn btn-success" onclick="reservar();">Reservar</button>');
-			}else{
-				$('.reservar').html('');
-				$('.hora_inicio').html('<label>Hora Incio: '+horaInicio+'</label>');
-				$('.hora_final').html('<label>Hora Fin: '+horaFin+':'+hora[1]+'</label>');
-				$('.cantidad_horas').html('<label>Nº Horas: '+cantidadHoras+'</label>');
-				$('.precio_horas').html('<label>Precio X Hora: $'+precio_final+'</label>');
-			}
-		}
+							var horaR = [];
+							$.each(resp.r, function(k,v){
+								var horaIniR = timeFormat(v.re_hora_inicio);
+								horaIniR = horaIniR.split(':');
+								var horaFinR = timeFormat(v.re_hora_fin);
+								horaFinR = horaFinR.split(':');
+								horaR.push(horaIniR[0], horaFinR[0]);
+								
+							});
 
-		function reservar(){
-			var fecha = $('.fechasDisponibles').val();
-			var cliente = '<?= $cliente; ?>';
-			var oficina = $('#re_id_oficina option:selected').attr('oficina');
-			var cantidadHoras = $('#cant_hor').val();
-			var hora = $('.horaInicio').val();
-			hora = hora.split(':');
-			var horaInicio = hora[0]+':'+hora[1];
-			var horaFin = parseFloat(hora[0])+parseInt(cantidadHoras);
-			horaFin = horaFin+':'+hora[1];
-			var precio_final = parseFloat(cantidadHoras) * parseFloat(precio);
+							console.log(horaR);
+
+
+							$('.horario').html('<option value="0">Elegir un horario</option>');
+								for(horaIni[0]; horaIni[0]<horaFin[0]; horaIni[0]=parseFloat(horaIni[0])+parseFloat(dura_horas)){
+
+									$('.horario').append('<option value="'+horaIni[0]+':'+horaIni[1]+'">'+horaIni[0]+':'+horaIni[1]+'</option>');
+							}
+						}
+					});
+				}else{
+					$('.cantidad_horas').html('');
+				}
+			});
+
+			$('.horario').change(function(){
+				var horaIni = $(this).val(); 
+				var dura_horas = $('.dura_horas').val();
+				var precio = $('.re_id_oficina option:selected').attr('precio');
+				horaIni = horaIni.split(':');
+				if(horaIni != 0){
+					$('.hora_inicio').html(horaIni[0]+':'+horaIni[1]);
+					var horaFin = parseFloat(horaIni[0])+parseFloat(dura_horas)+':'+horaIni[1];
+
+					$('.hora_final').html(horaFin);
+					var precio_horas = parseFloat(precio)*parseFloat(dura_horas);
+					$('.precio_horas').html('$'+precio_horas);
+					$('.btn-reservar').css('display', 'block');
+				}else{
+					$('.hora_inicio').html('');
+					$('.hora_final').html('');
+					$('.precio_horas').html('');
+					$('.btn-reservar').css('display', 'none');
+				}
+			});
+
+		$('.btn-reservar').click(function(){
+			var re_id_ubicacion = $('.re_id_ubicacion').val();
+			var ubicacion 		= $('.re_id_ubicacion option:selected').attr('ubicacion');
+			var re_id_oficina   = $('.re_id_oficina').val();
+			var oficina 		= $('.re_id_oficina option:selected').attr('oficina');
+			var fecha 			= $('.fechasDisponibles').val();
+			var dura_horas 		= $('.dura_horas').val();
+			var precio 			= $('.re_id_oficina option:selected').attr('precio');
+			var hora 			= $('.horario').val(); 
+			hora 				= hora.split(':');
+			var cliente 		= '<?= $cliente; ?>';
+			var horaInicio 		= hora[0]+':'+hora[1];
+			var horaFin 		= parseFloat(hora[0])+parseFloat(dura_horas)+':'+hora[1];
+			var precio_final 	= parseFloat(precio)*parseFloat(dura_horas);
 
 			$.confirm({
 		        title: 'Resumen de la reservación',
@@ -409,6 +510,9 @@
 		        type: 'blue',
 		        content: ''+
 		          '<form id="formulario_reservacion" action="<?= base_url(); ?>sitio_web/agregar_reservación" method="POST" accept-charset="utf-8" enctype="multipart/form-data" autocomplete="off">' +
+		          '<div class="form-group">'+
+				    	'<label>Oficina: '+ubicacion+'</label>' +
+				    '</div>'+
 		          	'<div class="form-group">'+
 				    	'<label>Oficina: '+oficina+'</label>' +
 				    '</div>'+
@@ -422,7 +526,7 @@
 				          '<label>Hora Fin: '+horaFin+'</label>' +
 				    '</div>'+
 				    '<div class="form-group">'+
-				          '<label>Nº Hora(s): '+cantidadHoras+'</label>' +
+				          '<label>Nº Hora(s): '+dura_horas+'</label>' +
 				    '</div>'+
 				    '<div class="form-group">'+
 				          '<label>Precio x Hora(s): $'+precio_final+'</label>' +
@@ -439,7 +543,7 @@
 		            	$.ajax({
 		            		type: 'POST',
 		            		url: '<?= base_url(); ?>sitio_web/agregar_reservacion',
-		            		data: 're_fecha='+fecha+'&re_hora_inicio='+horaInicio+'&re_hora_fin='+horaFin+'&re_id_cliente='+cliente+'&re_id_oficina='+re_id_oficina+'&re_precio='+precio_final,
+		            		data: 're_id_ubicacion='+re_id_ubicacion+'&re_id_oficina='+re_id_oficina+'&re_fecha='+fecha+'&re_hora_inicio='+horaInicio+'&re_hora_fin='+horaFin+'&re_id_cliente='+cliente+'&re_precio='+precio_final,
 		            		dataType: 'json',
 		            		success: function(resp){
 		            			if(resp == 1){
@@ -459,9 +563,7 @@
 		          }
 		        }
 		    });
-		}
-
-		
+		});
 
 		function dateFormat( df ) {
 			    var date  = new Date( df );

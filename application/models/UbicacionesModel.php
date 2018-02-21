@@ -36,7 +36,7 @@ class ubicacionesModel extends CI_Model {
     public function registrar_nueva_ubicacion() {
         
         $data = array(
-            
+            'ub_nombre'           => $this->input->post('ub_nombre'),    
             'ub_calle'           => $this->input->post('ub_calle'),
             'ub_numero_exterior' => $this->input->post('ub_numero_exterior'),
             'ub_numero_interior' => $this->input->post('ub_numero_interior'),
@@ -60,7 +60,7 @@ class ubicacionesModel extends CI_Model {
     public function editar_ubicacion($ub_id_ubicacion) {
         
         $data = array(
-            
+            'ub_nombre'           => $this->input->post('ub_nombre'),
             'ub_calle'           => $this->input->post('ub_calle'),
             'ub_numero_exterior' => $this->input->post('ub_numero_exterior'),
             'ub_numero_interior' => $this->input->post('ub_numero_interior'),
@@ -71,6 +71,13 @@ class ubicacionesModel extends CI_Model {
         $this->db->where('ub_id_ubicacion', $ub_id_ubicacion);
         $this->db->update('ub_ubicaciones',$data);
     }
+
+    public function getUbicacionesEvento(){
+        $this->db->where('ub_status', 1);  
+        $this->db->order_by("ub_id_ubicacion", "desc");
+        $query = $this->db->get('ub_ubicaciones')->result();
+        return $query;
+    } 
 
 }
 

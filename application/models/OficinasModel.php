@@ -55,6 +55,12 @@ class oficinasModel extends CI_Model {
 
     }  
 
+    public function getEspacios($id){
+        $this->db->where('a.of_id_ubicacion', $id);
+        $query = $this->db->get('of_oficinas a')->result();
+        return $query;
+    }
+
     public function editar_oficina($of_id_oficina) {
         
         $data = array(
@@ -66,14 +72,7 @@ class oficinasModel extends CI_Model {
         
         $this->db->where('of_id_oficina', $of_id_oficina);
         $this->db->update('of_oficinas',$data);
-    }
-
-    public function getOficinasEventos(){
-        $this->db->where('of_status', 1);
-        $this->db->order_by("of_nombre", "asc");
-        $query = $this->db->get('of_oficinas')->result();
-        return $query;
-    }   
+    } 
 
 }
 

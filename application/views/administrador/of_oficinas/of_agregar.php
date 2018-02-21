@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
-		<title>Mia Office | Agregar Oficina</title>
+		<title>Mia Office | Agregar Espacio</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="page-header">
-						<h1>Agregar Oficina</h1>
+						<h1>Agregar Espacio</h1>
 					</div>
 				</div>
 			</div>
@@ -52,8 +52,8 @@
 							<div class="form-group">
 								<!-- Nombre -->
 								<div class="col-xs-12 col-sm-4">
-									<label class="control-label" >* Oficina</label>
-									<input type="text" placeholder="Oficina" name="of_nombre" id="of_nombre" class="form-control" value="<?= set_value('of_nombre'); ?>">
+									<label class="control-label" >* Nombre del espacio</label>
+									<input type="text" placeholder="Nombre del espacio" name="of_nombre" id="of_nombre" class="form-control" value="<?= set_value('of_nombre'); ?>">
 									<span class="pull-center error_of_nombre" style="color: red">
 										<?= form_error('of_nombre'); ?></span>
 								</div>
@@ -68,20 +68,13 @@
 								</div>
 								<!-- Nº Interior -->
 								<div class="col-xs-12 col-sm-4">
-									<label class="control-label">* Ubicación</label>
+									<label class="control-label">* Dirección</label>
 									<select class="form-control" id="of_id_ubicacion" name="of_id_ubicacion">
-										<option value="">Ubicación</option>
+										<option value="">Dirección</option>
 										<?php foreach($ubicaciones as $row): ?>
 										<option value="<?= $row->ub_id_ubicacion; ?>"  
 								        <?= set_select('of_id_ubicacion', $row->ub_id_ubicacion); ?>  >
-								        <?php
-								        $num_int = '';
-										if(isset($row->ub_numero_interior )){
-											$num_int = $row->ub_numero_interior;
-										}
-										$direccion = $row->ub_calle.' #'.$row->ub_numero_exterior.$num_int.' '.$row->ub_colonia.' C.P. '.$row->ub_codigo_postal;
-
-								        echo $direccion; ?></option>	
+								        <?= $row->ub_nombre; ?></option>	
 										<?php endforeach; ?>
 									</select>
 									<span class="pull-center error_of_id_ubicacion" style="color: red">

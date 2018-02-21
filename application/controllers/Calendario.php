@@ -7,18 +7,30 @@ class calendario extends CI_Controller {
         $this->load->library(array('form_validation', 'session', 'encrypt'));
         $this->load->helper(array('security', 'form','url'));
         $this->load->model('calendarioModel');
+        $this->load->model('ubicacionesModel');
         $this->load->model('oficinasModel');
+        $this->load->model('usuariosModel');
+        $this->load->model('reservacionesModel');
     }
 
     public function index(){
-    	$data['oficinas'] = $this->oficinasModel->getOficinasEventos();
+        $this->usuariosModel->usuario_activo_o_inactivo();
+        $data['direcciones'] = $this->ubicacionesModel->getUbicacionesEvento();
     	$this->load->view('administrador/calendario/calendario', $data);
     }
 
-    public function getEventos(){
-    	$eventos = $this->calendarioModel->getEventos();
-    	echo json_encode($eventos);
+    public function getEspacios(){
+        $oficinas = $this->oficinasModel->getEspacios($this->input->post('of_id_ubicacion'));
+        echo json_encode($oficinas);
     }
+
+    public function getEventos(){
+    	$data['calendario']   = $this->calendarioModel->getEventos();
+        $data['reservacion'] = $this->reservacionesModel->getEventos();
+    	echo json_encode($data);
+    }
+
+    
 
     public function ejecutar_registrar_evento(){
 

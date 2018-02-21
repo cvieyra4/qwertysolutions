@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
-		<title>MIA OFFICE - PANEL</title>
+		<title>QUADRA TOWERS - PANEL</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,7 +28,7 @@
 						<span class="clip-list-2"></span>
 					</button>
 					<a class="navbar-brand" href="<?= base_url(); ?>panel/inicio">
-						MIA OFFICE
+						Quadra Towers Renta de Espacios
 					</a>
 				</div>
 				<div class="navbar-tools">
@@ -60,30 +60,30 @@
 							<a href="<?= base_url(); ?>panel/inicio"><i class="clip-home-3"></i>
 								<span class="title"> Inicio</span>
 							</a>
-						</li class="active open">
+						</li>
 						<li>
 							<a href="<?= base_url(); ?>us_usuarios"><i class="clip-user-2"></i>
 								<span class="title"> Usuarios</span>
 							</a>
 						</li>
-						<li>
-							<a href="<?= base_url(); ?>cl_clientes"><i class="clip-users"></i>
-								<span class="title"> Clientes</span>
+						<li class="active open">
+							<a href="<?= base_url(); ?>ub_ubicaciones"><i class="clip-location"></i>
+								<span class="title"> Direcciones</span>
 							</a>
 						</li>
 						<li>
 							<a href="<?= base_url(); ?>of_oficinas"><i class="fa fa-building-o"></i>
-								<span class="title"> Oficinas</span>
-							</a>
-						</li>
-						<li class="active open">
-							<a href="<?= base_url(); ?>ub_ubicaciones"><i class="clip-location"></i>
-								<span class="title"> Ubicaciones</span>
+								<span class="title"> Espacios</span>
 							</a>
 						</li>
 						<li>
 							<a href="<?= base_url(); ?>calendario"><i class="clip-calendar"></i>
 								<span class="title"> Calendario</span>
+							</a>
+						</li>
+						<li>
+							<a href="<?= base_url(); ?>cl_clientes"><i class="clip-users"></i>
+								<span class="title"> Clientes</span>
 							</a>
 						</li>
 					</ul>
@@ -114,7 +114,7 @@
 							
 							<a href="<?= base_url(); ?>ub_ubicaciones/agregar_ubicacion">
 							<button type="button" class="btn btn-light-grey">
-								<i class="clip-plus-circle-2"></i> Ubicación
+								<i class="clip-plus-circle-2"></i> Dirección
 							</button>
 							</a>
 							<?php } ?>
@@ -141,9 +141,10 @@
 									<thead>
 										<tr>
 											<th>ID</th>
+											<th>Nombre</th>
 											<th>Ubicación</th>
 											<?php if($this->session->userdata('us_nivel_usuario') == 'Administrador') { ?>
-											<th>Action</th>
+											<th>Acción</th>
 											<?php } ?>
 										</tr>
 									</thead>
@@ -160,6 +161,7 @@
 									?>
 										<tr>
 											<td><?= $row->ub_id_ubicacion; ?></td>
+											<td><?= $row->ub_nombre; ?></td>
 											<td><?= $direccion; ?></td>
 											<td>
 												<?php if($this->session->userdata('us_nivel_usuario') == 'Administrador') {

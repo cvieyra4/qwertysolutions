@@ -10,11 +10,18 @@ class sitio_web extends CI_Controller {
         $this->load->model('oficinasModel');
         $this->load->model('calendarioModel');
         $this->load->model('reservacionesModel');
+        $this->load->model('ubicacionesModel');
     }
 
     public function index(){
-    	$data['oficinas'] = $this->oficinasModel->getOficinasEventos();
+    	
+    	$data['ubicaciones'] = $this->ubicacionesModel->getUbicacionesEvento();
     	$this->load->view('pagina/index', $data);
+    }
+
+    public function getEspacios(){
+    	$oficinas = $this->oficinasModel->getEspacios($this->input->post('re_id_ubicacion'));
+    	echo json_encode($oficinas);
     }
 
     public function validar_usuario_ajax(){
@@ -70,8 +77,8 @@ class sitio_web extends CI_Controller {
     }
 
     public function getFechasDisponibles(){
-    	$data['calendario']  = $this->calendarioModel->getFechasDisponibles();
-    	$data['reservacion'] = $this->reservacionesModel->getFechasDisponibles();
+    	$data['c']  = $this->calendarioModel->getFechasDisponibles();
+    	$data['r'] = $this->reservacionesModel->getFechasDisponibles();
     	echo json_encode($data);
     }
 

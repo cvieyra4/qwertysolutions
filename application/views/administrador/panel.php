@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
-		<title>MIA OFFICE - PANEL</title>
+		<title>QUADRA TOWERS - PANEL</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -27,7 +27,7 @@
 						<span class="clip-list-2"></span>
 					</button>
 					<a class="navbar-brand" href="<?= base_url(); ?>panel/inicio">
-						MIA OFFICE
+						Quadra Towers Renta de Espacios
 					</a>
 				</div>
 				<div class="navbar-tools">
@@ -66,23 +66,23 @@
 							</a>
 						</li>
 						<li>
-							<a href="<?= base_url(); ?>cl_clientes"><i class="clip-users"></i>
-								<span class="title"> Clientes</span>
+							<a href="<?= base_url(); ?>ub_ubicaciones"><i class="clip-location"></i>
+								<span class="title"> Direcciones</span>
 							</a>
 						</li>
 						<li>
 							<a href="<?= base_url(); ?>of_oficinas"><i class="fa fa-building-o"></i>
-								<span class="title"> Oficinas</span>
-							</a>
-						</li>
-						<li>
-							<a href="<?= base_url(); ?>ub_ubicaciones"><i class="clip-location"></i>
-								<span class="title"> Ubicaciones</span>
+								<span class="title"> Espacios</span>
 							</a>
 						</li>
 						<li>
 							<a href="<?= base_url(); ?>calendario"><i class="clip-calendar"></i>
 								<span class="title"> Calendario</span>
+							</a>
+						</li>
+						<li>
+							<a href="<?= base_url(); ?>cl_clientes"><i class="clip-users"></i>
+								<span class="title"> Clientes</span>
 							</a>
 						</li>
 					</ul>
