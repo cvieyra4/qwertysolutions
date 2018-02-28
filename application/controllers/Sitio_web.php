@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class sitio_web extends CI_Controller {
 	public function __construct(){
         parent::__construct();
-        $this->load->library(array('form_validation', 'session', 'encrypt'));
+        $this->load->library(array('form_validation', 'session', 'encrypt', 'conekta'));
         $this->load->helper(array('security', 'form','url'));
         $this->load->model('clientesModel');
         $this->load->model('oficinasModel');
@@ -17,6 +17,7 @@ class sitio_web extends CI_Controller {
     	
     	$data['ubicaciones'] = $this->ubicacionesModel->getUbicacionesEvento();
     	$this->load->view('pagina/index', $data);
+
     }
 
     public function getEspacios(){
@@ -86,6 +87,34 @@ class sitio_web extends CI_Controller {
 
     	$reservacion = $this->reservacionesModel->agregar_reservacion();
     	echo json_encode($reservacion);
+    }
+
+    public function payment(){
+
+    	//creamos un cargo
+		  $charge = Conekta_Charge::create(array(
+		    'description'=>'Stogies',
+		    'reference_id'=>'9839-wolf_pack',
+		    'amount'=>20000,
+		    'currency'=>'MXN',
+		    'card'=>"tok_test_visa_4242",
+		    "details"=> array(
+		      "email"=>"logan@x-men.org"
+		    )
+		  ));
+
+		  //imprimimos el objeto charge que devuelve conekta
+		  print_r($charge);
+
+		  //para buscar un cargo existente
+		  print_r(Conekta_Charge::find($charge->id));
+
+		  //cachando errores para crear o buscar cargos
+		  try{
+		        print_r(Conekta_Charge::find($charge->id));
+		  }catch (Conekta_Error $e){
+		        echo $e->getMessage();
+		  }
     }
 
 }

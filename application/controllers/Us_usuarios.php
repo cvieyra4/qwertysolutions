@@ -89,11 +89,11 @@ class us_usuarios extends CI_Controller {
     
     /*metodo que valida que la contraseña sea escrita correctamente con el nivel de seguridad solicitado*/
 	function pass_check($us_contrasenia){
-				if(preg_match('/^[A-Z]{1}[a-z0-9]{8}[&$#_?¡()=]{1}$/', $us_contrasenia)){
+				if(preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&#])([A-Za-z\d$@$!%*?&#]|[^ ]){6,10}$/', $us_contrasenia)){
 						return TRUE;
 				}
 				else{
-					$this->form_validation->set_message('pass_check', 'La %s debe contener la primera letra mayuscula, el ultimo caracter debe ser caracter y deben ser 10 digitos.');
+					$this->form_validation->set_message('pass_check', 'La %s debe contener 1 letra en mayúscula, 1 símbolo y 1 dígito numérico y sin espacios en una palabra de 6 a 10 letras.');
 					return false;
 				}     
     }

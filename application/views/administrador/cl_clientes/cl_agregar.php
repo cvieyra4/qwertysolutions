@@ -101,7 +101,7 @@
 									<span class="input-help">
 									<input type="password" placeholder="Contraseña" name="cl_contrasenia" 
 									id="cl_contrasenia" class="form-control">
-									<i class="help-button popovers" data-placement="right" data-trigger="hover" data-rel="popover" data-original-title="La contraseña consta de 10 caracteres: Primera letra Mayúscula + 8 Caracteres + Un simbolo al final (# - $ - % - &)"></i>
+									<i class="help-button popovers" data-placement="right" data-trigger="hover" data-rel="popover" data-original-title="La contraseña debe contener 1 letra en mayúscula, 1 símbolo y 1 dígito numérico y sin espacios en una palabra de 6 a 10 letras."></i>
 									</span>
 									<span class="pull-center error_cl_contrasenia" style="color: red">
 										<?= form_error('cl_contrasenia'); ?></span>
@@ -111,7 +111,7 @@
 									<label class="control-label">* Confirmar contraseña</label>
 									<span class="input-help">
 									<input type="password" placeholder="Confirmar Contraseña" name="cl_fcontrasenia" id="cl_fcontrasenia" class="form-control">
-									<i class="help-button popovers" data-placement="right" data-trigger="hover" data-rel="popover" data-original-title="La contraseña consta de 10 caracteres: Primera letra Mayúscula + 8 Caracteres + Un simbolo al final (# - $ - % - &)"></i>
+									<i class="help-button popovers" data-placement="right" data-trigger="hover" data-rel="popover" data-original-title="La contraseña debe contener 1 letra en mayúscula, 1 símbolo y 1 dígito numérico y sin espacios en una palabra de 6 a 10 letras."></i>
 									</span>
 
 									<span class="pull-center error_cl_fcontrasenia" style="color: red">
@@ -195,11 +195,11 @@
 		  	}
 
 		  	//validando que la contraseña se encuentre bien escrita
-			var expreg_pass = /^[A-Z]{1}[a-z0-9]{5,8}[&$#_?¡()=]{1}$/;
+			var expreg_pass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&#])([A-Za-z\d$@$!%*?&#]|[^ ]){6,10}$/;
 		  	if(expreg_pass.test(cl_contrasenia.trim())){
 		        $(".error_cl_contrasenia").html('');
 		    }else{
-		        $(".error_cl_contrasenia").html('La contraseña debe contener la primera letra mayuscula, el ultimo caracter debe ser caracter y deben ser 7 a 10 digitos.');
+		        $(".error_cl_contrasenia").html('La contraseña debe contener 1 letra en mayúscula, 1 símbolo y 1 dígito numérico y sin espacios en una palabra de 6 a 10 letras.');
 		  		band = 2;
 		    }
 		    

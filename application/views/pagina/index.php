@@ -547,7 +547,7 @@
 		            		dataType: 'json',
 		            		success: function(resp){
 		            			if(resp == 1){
-		            				location.href='<?= base_url(); ?>sitio_web';
+		            				location.href='<?= base_url(); ?>sitio_web/payment';
 		            			}else{
 		            				alert('Ocurrio un error');
 		            			}
