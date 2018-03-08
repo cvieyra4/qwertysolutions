@@ -1,7 +1,4 @@
 <?php
-
-namespace Conekta;
-
 abstract class Conekta
 {
     public static $apiKey;

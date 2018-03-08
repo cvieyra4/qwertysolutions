@@ -1,12 +1,4 @@
 <?php
-
-namespace Conekta;
-
-use \Conekta\ConektaResource;
-use \Conekta\Lang;
-use \Conekta\Exceptions;
-use \Conekta\Conekta;
-
 class ShippingContact extends ConektaResource
 {
   var $receiver       = "";

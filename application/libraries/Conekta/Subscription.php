@@ -1,12 +1,4 @@
 <?php
-
-namespace Conekta;
-
-use \Conekta\ConektaResource;
-use \Conekta\Lang;
-use \Conekta\Conekta;
-use \Conekta\Exceptions;
-
 class Subscription extends ConektaResource
 {
   public function instanceUrl()

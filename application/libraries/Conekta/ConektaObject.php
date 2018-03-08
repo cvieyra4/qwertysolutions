@@ -1,10 +1,4 @@
 <?php
-
-namespace Conekta;
-
-use \ArrayObject;
-use \Conekta\Util;
-
 class ConektaObject extends ArrayObject
 {
   protected $_values;

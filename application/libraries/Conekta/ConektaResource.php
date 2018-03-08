@@ -1,14 +1,4 @@
 <?php
-
-namespace Conekta;
-
-use \Conekta\ConektaObject;
-use \Conekta\Requestor;
-use \Conekta\NoConnectionError;
-use \Conekta\Lang;
-use \Conekta\Util;
-use \Conekta\Conekta;
-
 abstract class ConektaResource extends ConektaObject
 {
   public static function className($class)

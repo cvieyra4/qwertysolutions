@@ -1,9 +1,4 @@
 <?php
-
-namespace Conekta;
-
-use \Conekta\ConektaResource;
-
 class Customer extends ConektaResource
 {
   var $livemode                 = "";

@@ -1,13 +1,4 @@
 <?php
-
-namespace Conekta;
-
-use \Conekta\ConektaResource;
-use \Conekta\Requestor;
-use \Conekta\Util;
-use \Conekta\Exceptions;
-use \Conekta\Conekta;
-
 class ConektaList extends ConektaObject
 {
 

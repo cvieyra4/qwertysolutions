@@ -91,36 +91,49 @@
 							<h3>Haz tu reservación</h3>
 						</div>
 						<div class="col-md-12">
-							<form action="" method="POST" id="card-form">
-							  <span class="card-errors"></span>
-							  <div>
-							    <label>
-							      <span>Nombre del tarjetahabiente</span>
-							      <input type="text" size="20" data-conekta="card[name]">
-							    </label>
-							  </div>
-							  <div>
-							    <label>
-							      <span>Número de tarjeta de crédito</span>
-							      <input type="text" size="20" data-conekta="card[number]">
-							    </label>
-							  </div>
-							  <div>
-							    <label>
-							      <span>CVC</span>
-							      <input type="text" size="4" data-conekta="card[cvc]">
-							    </label>
-							  </div>
-							  <div>
-							    <label>
-							      <span>Fecha de expiración (MM/AAAA)</span>
-							      <input type="text" size="2" data-conekta="card[exp_month]">
-							    </label>
-							    <span>/</span>
-							    <input type="text" size="4" data-conekta="card[exp_year]">
-							  </div>
-							  <button class="btn btn-success" type="submit">Crear token</button>
-							</form>
+							<form class="form-horizontal" action="#" method="POST" id="card-form">
+		                        <div class="form-group">
+		                            <label class="col-sm-4 control-label">Nombre del tarjetahabiente</label>
+		                            <div class="col-sm-8">
+		                                <input type="text" size="20" data-conekta="card[name]" class="form-control card" value="Cesar Vieyra" />
+		                            </div>
+		                        </div>
+
+		                        <div class="form-group">
+		                            <label class="col-sm-4 control-label">Número de tarjeta de crédito</label>
+		                            <div class="col-sm-8">
+		                                <input type="text" size="20" data-conekta="card[number]" class="form-control card" 
+		                                value="4242424242424242" />
+		                            </div>
+		                        </div>
+
+		                        <div class="form-group">
+		                            <label class="col-sm-4 control-label">CVC</label>
+		                            <div class="col-sm-8">
+		                                <input type="text" size="4" data-conekta="card[cvc]" class="form-control card"
+		                                value="456" />
+		                            </div>
+		                        </div>
+
+		                        <div class="form-group">
+		                            <label class="col-sm-4 control-label">Fecha de expiración (MM/AAAA)</label>
+		                            <div class="col-sm-3">
+		                                <input id="card_exp_mes" type="text" size="2" data-conekta="card[exp_month]" class="form-control card" value="12" />
+		                            </div>
+		                            <div class="col-sm-1 text-center">
+		                                /
+		                            </div>
+		                            <div class="col-sm-4">
+		                                <input id="card_exp_anio" type="text" size="4" data-conekta="card[exp_year]" class="form-control card" value="2018" />
+		                            </div>
+		                        </div>
+
+		                        <div class="col-md-4 col-md-offset-8 text-right">
+		                            <button id="btn-pay" type="submit" class="btn btn-primary right">¡Pagar ahora!</button>
+		                        </div>
+
+		                        <input id="card_token" type="hidden" class="form-control"/>
+		                    </form>
 						</div>
 					</div>
 				</div>
@@ -204,12 +217,12 @@
 			});
 		</script>
 		<script type="text/javascript" >
-		  Conekta.setPublicKey('key_Ay6gKyoXc3yEzX24zyJr7QQ');
+		  Conekta.setPublicKey('key_KJysdbf6PotS2ut2');
 
 		  var conektaSuccessResponseHandler = function(token) {
 		    var $form = $("#card-form");
 		    //Inserta el token_id en la forma para que se envíe al servidor
-		     $form.append($('<input type="hidden" name="conektaTokenId" id="conektaTokenId">').val(token.id));
+		    $form.append($('<input name="conektaTokenId" id="conektaTokenId" type="hidden">').val(token.id));
 		    $form.get(0).submit(); //Hace submit
 		  };
 		  var conektaErrorResponseHandler = function(response) {
@@ -222,13 +235,53 @@
 		  $(function () {
 		    $("#card-form").submit(function(event) {
 		      var $form = $(this);
+              var errorResponseHandler, successResponseHandler;
+		      
 		      // Previene hacer submit más de una vez
-		      $form.find("button").prop("disabled", true);
-		      Conekta.Token.create($form, conektaSuccessResponseHandler, conektaErrorResponseHandler);
+		      $("#btn-pay").prop("disabled", true);
+              $("#btn-pay").html('<em>Procesando...</em>');
+
+              //Conekta.setPublishableKey(api)
+
+              conektaSuccessResponseHandler = function(token) {
+                        var card="";
+                        var str="";
+                        $.each($("input:text.card"), function(){
+                            card= card + "&"+$(this).data('conekta')+"="+ $(this).val();
+                        });
+                        str= str + "&token_id="+ token.id + card;
+
+                        return $.ajax({
+                            type: 'post',
+                            url: '<?= base_url(); ?>payment/create',
+                            data: str,
+                            dataType: 'json',
+                            success: function(response){
+                                console.log(response);
+                                alert(response);
+                                location.href='<?= base_url(); ?>';
+                            }
+                        });
+                    };
+
+               /* Después de recibir un error */
+                conektaErrorResponseHandler = function(error) {
+                	alert(error.message_to_purchaser);
+                    return false;
+                };
+                        
+                    //COMENTADO A PROPOSITO PARA QUE NO VALIDE FECHA DE EXPIRACION
+                    //if (Conekta.card.validateExpirationDate($("#card_exp_mes").val(), $("#card_exp_anio").val())) {
+                    //    alert("Tarjeta expirada");
+                    //    return false;
+                    //}else{
+                        Conekta.token.create($form, conektaSuccessResponseHandler, conektaErrorResponseHandler);
+                    //}
+
 		      return false;
 		    });
 		  });
 		</script>
-		</script>
+
 	</body>
 </html>

@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class sitio_web extends CI_Controller {
 	public function __construct(){
         parent::__construct();
-        $this->load->library(array('form_validation', 'session', 'encrypt', 'conekta'));
+        $this->load->library(array('form_validation', 'session', 'encrypt'));
         $this->load->helper(array('security', 'form','url'));
         $this->load->model('clientesModel');
         $this->load->model('oficinasModel');
@@ -58,9 +58,12 @@ class sitio_web extends CI_Controller {
 			$cl = $this->clientesModel->checkClientelog($cl_usuario);
 
 			$sessionData = array(
-				'cl_id_cliente'    		=> $cl->cl_id_cliente,
-				'cl_usuario'       		=> $cl->cl_usuario,
-				'cl_sesion_activa' 	  	=> true
+				'cl_id_cliente'		=> $cl->cl_id_cliente,
+				'cl_nombre'			=> $cl->cl_nombre.$cl->cl_apellido_paterno.$cl->cl_apellido_materno,
+				'cl_correo'			=> $cl->cl_correo,
+				'cl_telefono'		=> $cl->cl_telefono,	
+				'cl_usuario'       	=> $cl->cl_usuario,
+				'cl_sesion_activa' 	=> true
 			);
 			$this->session->set_userdata($sessionData);
 						
@@ -78,44 +81,37 @@ class sitio_web extends CI_Controller {
     }
 
     public function getFechasDisponibles(){
-    	$data['c']  = $this->calendarioModel->getFechasDisponibles();
-    	$data['r'] = $this->reservacionesModel->getFechasDisponibles();
-    	echo json_encode($data);
+    	$calendario  = $this->calendarioModel->getFechasDisponibles();
+    	echo json_encode($calendario);
+    }
+
+    public function getReservacion(){
+    	$reservacion = $this->reservacionesModel->getReservacion();
+    	if(isset($reservacion)){
+    		echo json_encode(1);
+    	}else{
+    		echo json_encode(0);
+    	}
+    	
     }
 
     public function agregar_reservacion(){
+    	$data = array
+    	(	
+    		'nombre' 		  => $this->input->post('nombre_invitado'), 
+    		'correo' 		  => $this->input->post('correo_invitado'), 
+    		're_id_ubicacion' => $this->input->post('re_id_ubicacion'), 
+    		're_id_oficina' => $this->input->post('re_id_oficina'), 
+    		're_fecha' => $this->input->post('re_fecha'), 
+    		're_hora_inicio' => $this->input->post('re_hora_inicio'), 
+    		're_hora_fin' => $this->input->post('re_hora_fin'), 
+    		're_id_cliente' => $this->input->post('re_id_cliente'), 
+    		're_precio' => $this->input->post('re_precio'), 
 
+    	);
     	$reservacion = $this->reservacionesModel->agregar_reservacion();
-    	echo json_encode($reservacion);
+    	$this->session->set_flashdata($data);
+    	redirect(base_url().'payment');
     }
-
-    public function payment(){
-
-    	//creamos un cargo
-		  $charge = Conekta_Charge::create(array(
-		    'description'=>'Stogies',
-		    'reference_id'=>'9839-wolf_pack',
-		    'amount'=>20000,
-		    'currency'=>'MXN',
-		    'card'=>"tok_test_visa_4242",
-		    "details"=> array(
-		      "email"=>"logan@x-men.org"
-		    )
-		  ));
-
-		  //imprimimos el objeto charge que devuelve conekta
-		  print_r($charge);
-
-		  //para buscar un cargo existente
-		  print_r(Conekta_Charge::find($charge->id));
-
-		  //cachando errores para crear o buscar cargos
-		  try{
-		        print_r(Conekta_Charge::find($charge->id));
-		  }catch (Conekta_Error $e){
-		        echo $e->getMessage();
-		  }
-    }
-
 }
 ?>

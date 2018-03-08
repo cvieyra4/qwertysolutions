@@ -1,23 +1,4 @@
 <?php
-
-/**
-  * @author Conekta
-  * @author Conekta Developers <soporte@conekta.com>
-  */
-
-namespace Conekta;
-
-use \Conekta\Conekta;
-use \Conekta\Handler;
-
-/**
-  * @method string  apiUrl($urls string)
-  * @method array() additionalPluginHeaders()
-  * @method array() setHeaders()
-  * @method json    request($method string, $url string, $params array())
-  * @method string  buildQueryParamsUrl($url string, $params arraay())
-  * @method string  buildSegmentParamsUrl($url string, $params arraay())
-  */
 class Requestor
 {
   public $apiKey;
@@ -149,7 +130,7 @@ class Requestor
     $jsonResponse = json_decode($response, true);
 
     if ($responseCode != 200) {
-      throw Handler::errorHandler($jsonResponse, $responseCode);
+        Handler::errorHandler($jsonResponse, $responseCode);
     }
 
     return $jsonResponse;

@@ -1,38 +1,33 @@
 <?php
-
-namespace Conekta;
-
-use \Conekta\ConektaObject;
-
 abstract class Util
 {
   public static $types = array(
-    'webhook'                     => '\Conekta\Webhook',
-    'webhook_log'                 => '\Conekta\WebhookLog',
-    'billing_address'             => '\Conekta\Address',
-    'bank_transfer_payout_method' => '\Conekta\Method',
-    'payout'                      => '\Conekta\Payout',
-    'payee'                       => '\Conekta\Payee',
-    'payout_method'               => '\Conekta\PayoutMethod',
-    'card_payment'                => '\Conekta\PaymentMethod',
-    'cash_payment'                => '\Conekta\PaymentMethod',
-    'bank_transfer_payment'       => '\Conekta\PaymentMethod',
-    'card'                        => '\Conekta\Card',
-    'charge'                      => '\Conekta\Charge',
-    'customer'                    => '\Conekta\Customer',
-    'event'                       => '\Conekta\Event',
-    'plan'                        => '\Conekta\Plan',
-    'subscription'                => '\Conekta\Subscription',
-    'payment_source'              => '\Conekta\PaymentSource',
-    'tax_line'                    => '\Conekta\TaxLine',
-    'shipping_line'               => '\Conekta\ShippingLine',
-    'discount_line'               => '\Conekta\DiscountLine',
-    'conekta_list'                => '\Conekta\ConektaList',
-    'shipping_contact'            => '\Conekta\ShippingContact',
-    'lang'                        => '\Conekta\Lang',
-    'line_item'                   => '\Conekta\LineItem',
-    'order'                       => '\Conekta\Order',
-    'token'                       => '\Conekta\Token'
+    'webhook'                     => 'Webhook',
+    'webhook_log'                 => 'WebhookLog',
+    'billing_address'             => 'Address',
+    'bank_transfer_payout_method' => 'Method',
+    'payout'                      => 'Payout',
+    'payee'                       => 'Payee',
+    'payout_method'               => 'PayoutMethod',
+    'card_payment'                => 'PaymentMethod',
+    'cash_payment'                => 'PaymentMethod',
+    'bank_transfer_payment'       => 'PaymentMethod',
+    'card'                        => 'Card',
+    'charge'                      => 'Charge',
+    'customer'                    => 'Customer',
+    'event'                       => 'Event',
+    'plan'                        => 'Plan',
+    'subscription'                => 'Subscription',
+    'payment_source'              => 'PaymentSource',
+    'tax_line'                    => 'TaxLine',
+    'shipping_line'               => 'ShippingLine',
+    'discount_line'               => 'DiscountLine',
+    'conekta_list'                => 'ConektaList',
+    'shipping_contact'            => 'ShippingContact',
+    'lang'                        => 'Lang',
+    'line_item'                   => 'LineItem',
+    'order'                       => 'Order',
+    'token'                       => 'Token'
     );
 
   public static function convertToConektaObject($resp)
@@ -48,7 +43,7 @@ abstract class Util
       }
 
       if (isset($resp['street1']) || isset($resp['street2'])) {
-        $class = '\Conekta\Address';
+        $class = 'Address';
         $instance = new $class();
         $instance->loadFromArray($resp);
 

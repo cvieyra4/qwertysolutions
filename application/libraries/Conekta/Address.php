@@ -1,9 +1,4 @@
 <?php 
-
-namespace Conekta;
-
-use \Conekta\ConektaResource;
-
 class Address extends ConektaResource
 {
   var $street1 = "";

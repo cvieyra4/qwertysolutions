@@ -1,9 +1,4 @@
 <?php
-
-namespace Conekta;
-
-use \Conekta\ConektaResource;
-
 class Log extends ConektaResource
 {
   var $method         = "";

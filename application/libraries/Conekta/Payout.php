@@ -1,9 +1,4 @@
 <?php 
-
-namespace Conekta;
-
-use \Conekta\ConektaResource;
-
 class Payout extends ConektaResource
 {
   public static function find($id)

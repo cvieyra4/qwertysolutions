@@ -1,12 +1,4 @@
 <?php
-
-namespace Conekta;
-
-use \Conekta\ConektaResource;
-use \Conekta\Lang;
-use \Conekta\Error;
-use \Conekta\Conekta;
-
 class PaymentSource extends ConektaResource
 {
   public function instanceUrl()

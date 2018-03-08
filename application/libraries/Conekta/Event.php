@@ -1,9 +1,4 @@
 <?php
-
-namespace Conekta;
-
-use \Conekta\ConektaResource;
-
 class Event extends ConektaResource
 {
   var $data          = "";

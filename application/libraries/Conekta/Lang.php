@@ -1,7 +1,4 @@
 <?php
-
-namespace Conekta;
-
 class Lang
 {
   const EN = 'en';

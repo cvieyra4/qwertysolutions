@@ -49,5 +49,27 @@ class reservacionesModel extends CI_Model {
 
     }
 
+    public function getReservacion(){
+        $fecha = explode('/', $this->input->post('re_fecha'));
+        $re_fecha = $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
+        $re_hora_inicio = $this->input->post('re_hora_inicio');
+        $re_hora_fin = $this->input->post('re_hora_fin');
+
+        $where = "(
+            (re_hora_inicio >='".$re_hora_inicio."' AND re_hora_inicio <= '".$re_hora_fin."' AND re_hora_fin >= '".$re_hora_inicio."' AND re_hora_fin <= '".$re_hora_fin."') OR 
+            (re_hora_inicio <'".$re_hora_inicio."' AND re_hora_fin > '".$re_hora_inicio."') OR
+            (re_hora_inicio <'".$re_hora_fin."' AND re_hora_fin > '".$re_hora_fin."')
+        )";
+
+        $this->db->where($where, NULL, FALSE);
+        $this->db->where('re_fecha', $re_fecha);
+        $this->db->where('re_id_oficina',   $this->input->post('re_id_oficina'));
+        $this->db->where('re_id_ubicacion', $this->input->post('re_id_ubicacion'));
+
+        $query = $this->db->get('reservaciones')->row();
+
+        return $query;
+    }
+
 }
 ?> 
