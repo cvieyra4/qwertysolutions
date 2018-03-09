@@ -34,7 +34,6 @@ class calendario extends CI_Controller {
 
     public function ejecutar_registrar_evento(){
 
-    	$this->form_validation->set_rules('ca_titulo', 'titulo', 'required|xss_clean');
     	$this->form_validation->set_rules('ca_hora_inicio', 'hora Inicio', 'required|xss_clean');
     	$this->form_validation->set_rules('ca_hora_fin', 'hora Final', 'required|xss_clean');
     	if ($this->form_validation->run() == false){
@@ -56,8 +55,6 @@ class calendario extends CI_Controller {
     public function ejecutar_editar_evento(){
     	$id_evento = $this->input->post('id_evento_editar');
 
-    	$this->form_validation->set_rules('ca_titulo_editar', 'titulo', 'required|xss_clean');
-    	$this->form_validation->set_rules('ca_id_oficina_editar', 'oficina', 'required|xss_clean');
     	$this->form_validation->set_rules('ca_hora_inicio_editar', 'hora Inicio', 'required|xss_clean');
     	$this->form_validation->set_rules('ca_hora_fin_editar', 'hora Final', 'required|xss_clean');
     	if ($this->form_validation->run() == false){
