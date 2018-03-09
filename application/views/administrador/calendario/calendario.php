@@ -300,7 +300,8 @@
 						success: function(resp){
 							$('#ca_id_oficina').html('<option value="0">Seleccionar Espacio</option>');
 							$.each(resp, function(k,v){
-								$('#ca_id_oficina').append('<option value="'+v.of_id_ubicacion+'" clave="'+v.of_nombre+'">'+v.of_nombre+'</option>')
+								alert(v.of_id_ubicacion);
+								$('#ca_id_oficina').append('<option value="'+v.of_id_oficina+'" clave="'+v.of_nombre+'">'+v.of_nombre+'</option>')
 							});
 						}
 					});
@@ -397,6 +398,7 @@
 								                                start: start,
 								                                end: end,
 								                                allDay: allDay,
+								                                className: 'label-green'
 								                                //className: $categoryClass
 								                            }, true); // make the event "stick"
 								                            $("#formulario_evento")[0].reset();
