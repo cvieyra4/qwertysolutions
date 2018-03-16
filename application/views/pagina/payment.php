@@ -43,17 +43,10 @@
 									<?php if($this->session->userdata('cl_sesion_activa') == false){ 
 										$tipo_invitado = 'Invitado';
 										$cliente = 0;
-									?>
-									<li class="fa fa-sign-in fa-3x tooltips login" data-original-title="Ingresar" data-placement="bottom">
-									</li>
-									<?php }else{ 
+									 }else{ 
 										$tipo_invitado = 'Hola '.$this->session->userdata('cl_usuario');
 										$cliente = $this->session->userdata('cl_id_cliente');
 									?>
-									<a href="<?= base_url(); ?>sitio_web/cerrar_sesion">
-									<li class="fa fa-sign-out fa-3x tooltips" data-original-title="Cerrar Sesión" data-placement="bottom">
-									</li>
-									</a>
 									<?php } ?>
 								</ul>
 							</div>
@@ -88,8 +81,17 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
-							<h3>Haz tu reservación</h3>
+							<h3>Pago de la Reservación</h3>
 						</div>
+						<input type="hidden" name="nombre" value="<?= $this->session->flashdata('nombre'); ?>">
+						<input type="hidden" name="correo" value="<?= $this->session->flashdata('correo'); ?>">
+						<input type="hidden" name="telefono" value="<?= $this->session->flashdata('telefono'); ?>">
+						<input type="hidden" name="re_id_ubicacion" value="<?= $this->session->flashdata('re_id_ubicacion'); ?>">
+						<input type="hidden" name="re_id_oficina" value="<?= $this->session->flashdata('re_id_oficina'); ?>">
+						<input type="hidden" name="fecha" value="<?= $this->session->flashdata('fecha'); ?>">
+						<input type="hidden" name="horario" value="<?= $this->session->flashdata('horario'); ?>">
+						<input type="hidden" name="cliente" value="<?= $this->session->flashdata('cliente'); ?>">
+						<input type="hidden" name="precio" value="<?= $this->session->flashdata('precio'); ?>">
 						<div class="col-md-12">
 							<form class="form-horizontal" action="#" method="POST" id="card-form">
 		                        <div class="form-group">
@@ -246,10 +248,13 @@
               conektaSuccessResponseHandler = function(token) {
                         var card="";
                         var str="";
+                        var data="&nombre="+$('#nombre').val()+"&correo="+$('#correo').val()+"&telefono="+$('#telefono').val()+"&re_id_ubicacion="+$('#re_id_ubicacion').val()+"&re_id_oficina="+$('#re_id_oficina').val()+"&fecha="+$('#fecha').val()+"&hora_inicio="+$('#hora_fin').val()+"&cliente="+$('#cliente').val()+"&precio="+$('#precio').val();
+
                         $.each($("input:text.card"), function(){
                             card= card + "&"+$(this).data('conekta')+"="+ $(this).val();
+
                         });
-                        str= str + "&token_id="+ token.id + card;
+                        str= str + "&token_id="+ token.id + card + data;
 
                         return $.ajax({
                             type: 'post',
@@ -258,7 +263,6 @@
                             dataType: 'json',
                             success: function(response){
                                 console.log(response);
-                                alert(response);
                                 location.href='<?= base_url(); ?>';
                             }
                         });

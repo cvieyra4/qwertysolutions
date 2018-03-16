@@ -144,7 +144,7 @@
 											<th>Nombre de espacio</th>
 											<th>Precio</th>
 											<th>Ubicación</th>
-											<th>Status</th>
+											<th>Estatus</th>
 											<?php if($this->session->userdata('us_nivel_usuario') == 'Administrador') { ?>
 											<th>Acción</th>
 											<?php } ?>

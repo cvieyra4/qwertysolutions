@@ -101,7 +101,7 @@
 									</a>
 								</li>
 								<li class="active">
-									Ubicaciones
+									Direcciones
 								</li>
 							</ol>
 							<div class="page-header">

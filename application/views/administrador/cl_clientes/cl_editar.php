@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
-		<title>Mia Office | Editar Cliente</title>
+		<title>Mia Office | Editar cliente</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="page-header">
-						<h1>Editar Cliente <?= $cliente->cl_nombre.' '.$cliente->cl_apellido_paterno; ?></h1>
+						<h1>Editar cliente <?= $cliente->cl_nombre.' '.$cliente->cl_apellido_paterno; ?></h1>
 					</div>
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 						<input type="hidden" name="id" value="<?= isset($cliente)?$cliente->cl_id_cliente:set_value('id'); ?>">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<i class="fa fa-asterisk" style="color: #999;"></i> Campos Requeridos
+							<i class="fa fa-asterisk" style="color: #999;"></i> Campos requeridos
 						</div>
 						
 						<div class="panel-body">
@@ -60,8 +60,8 @@
 								</div>
 								<!-- Apellido Paterno -->
 								<div class="col-xs-12 col-sm-3">
-									<label class="control-label">* Apellido Paterno</label>
-									<input type="text" placeholder="Apellido Paterno" name="cl_apellido_paterno" 
+									<label class="control-label">* Apellido paterno</label>
+									<input type="text" placeholder="Apellido paterno" name="cl_apellido_paterno" 
 									id="cl_apellido_paterno" class="form-control" 
 									value="<?= isset($cliente)?$cliente->cl_apellido_paterno:set_value('cl_apellido_paterno'); ?>">
 									<span class="pull-center error_cl_apellido_paterno" style="color: red">
@@ -69,8 +69,8 @@
 								</div>
 								<!-- Apellido Materno -->
 								<div class="col-xs-12 col-sm-3">
-									<label class="control-label">Apellido Materno</label>
-									<input type="text" placeholder="Apellido Materno" name="cl_apellido_materno" id="cl_apellido_materno" class="form-control" 
+									<label class="control-label">Apellido materno</label>
+									<input type="text" placeholder="Apellido materno" name="cl_apellido_materno" id="cl_apellido_materno" class="form-control" 
 									value="<?= isset($cliente)?$cliente->cl_apellido_materno:set_value('cl_apellido_materno'); ?>">
 									<span class="pull-center error_cl_apellido_materno" style="color: red">
 										<?= form_error('cl_apellido_materno'); ?></span>
@@ -85,8 +85,8 @@
 
 								<!-- Telefono -->
 								<div class="col-xs-12 col-sm-3">
-									<label class="control-label"> Telefono</label>
-									<input type="text" placeholder="Telfono" name="cl_telefono" id="cl_telefono" class="form-control" data-inputmask='"mask": "999 999 9999"' data-mask 
+									<label class="control-label"> Teléfono</label>
+									<input type="text" placeholder="Teléfono" name="cl_telefono" id="cl_telefono" class="form-control" data-inputmask='"mask": "999 999 9999"' data-mask 
 									value="<?= isset($cliente)?$cliente->cl_telefono:set_value('cl_telefono'); ?>">
 									<span class="pull-center error_cl_telefono" style="color: red">
 										<?= form_error('cl_telefono'); ?></span>
@@ -114,7 +114,7 @@
 								<div class="col-xs-12 col-sm-3">
 									<label class="control-label">* Confirmar contraseña</label>
 									<span class="input-help">
-									<input type="password" placeholder="Confirmar Contraseña" name="cl_fcontrasenia" id="cl_fcontrasenia" class="form-control">
+									<input type="password" placeholder="Confirmar contraseña" name="cl_fcontrasenia" id="cl_fcontrasenia" class="form-control">
 									<i class="help-button popovers" data-placement="right" data-trigger="hover" data-rel="popover" data-original-title="La contraseña consta de 10 caracteres: Primera letra Mayúscula + 8 Caracteres + Un simbolo al final (# - $ - % - &)"></i>
 									</span>
 
@@ -207,7 +207,7 @@
 		    
 		    //validando que la contraseña y confirmacion de contraseña coincidan
 			if(cl_contrasenia.trim()!= cl_fcontrasenia.trim()){
-		        $(".error_cl_fcontrasenia").html('La contraseña y la confirmacion de contraseña son diferentes.');
+		        $(".error_cl_fcontrasenia").html('La contraseña y la confirmación de contraseña son diferentes.');
 		        band = 2;
 		    }
 		    
@@ -216,7 +216,7 @@
 		        if(expreg_usuario.test(cl_usuario.trim())){
 		            $(".error_cl_usuario").html('');
 		        }else{
-		            $(".error_cl_usuario").html('El nombre de usuario solo debe contener letras y numeros, con longitud de 5 a 15 caracteres.');
+		            $(".error_cl_usuario").html('El nombre de usuario solo debe contener letras y números, con longitud de 5 a 15 caracteres.');
 		            bad= 2;
 		        }
 		        
@@ -231,7 +231,7 @@
 		                if(resp.error_cl_correo==0){
 		                    $(".error_cl_correo").html('');
 		                }else{
-		                    $(".error_cl_correo").html('El correo electronico '+cl_correo.trim()+' ya ha sido registrado.');
+		                    $(".error_cl_correo").html('El correo electrónico '+cl_correo.trim()+' ya ha sido registrado.');
 		                }
 		                //valida que no se repita el nombre de usuario
 		                if(resp.error_cl_usuario==0){
@@ -313,7 +313,7 @@
 
 		$('.cancelar_usuario').click(function(){
 			$.confirm({
-				title: '¿Deseas Salir?',
+				title: '¿Deseas salir?',
           		theme: 'modern',
 				closeIconClass: 'fa fa-close',
 				icon: 'fa fa-sign-out',

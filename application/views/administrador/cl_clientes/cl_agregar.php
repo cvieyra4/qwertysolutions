@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
-		<title>Mia Office | Agregar Cliente</title>
+		<title>Mia Office | Agregar cliente</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="page-header">
-						<h1>Agregar Cliente</h1>
+						<h1>Agregar cliente</h1>
 					</div>
 				</div>
 			</div>
@@ -44,7 +44,7 @@
 					<form method="POST" id="formulario_cliente" action="<?= base_url(); ?>cl_clientes/ejecutar_registrar_nuevo_cliente" class="form-horizontal" autocomplete="off">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<i class="fa fa-asterisk" style="color: #999;"></i> Campos Requeridos
+							<i class="fa fa-asterisk" style="color: #999;"></i> Campos requeridos
 						</div>
 						
 						<div class="panel-body">
@@ -59,16 +59,16 @@
 								</div>
 								<!-- Apellido Paterno -->
 								<div class="col-xs-12 col-sm-3">
-									<label class="control-label">* Apellido Paterno</label>
-									<input type="text" placeholder="Apellido Paterno" name="cl_apellido_paterno" 
+									<label class="control-label">* Apellido paterno</label>
+									<input type="text" placeholder="Apellido paterno" name="cl_apellido_paterno" 
 									id="cl_apellido_paterno" class="form-control" value="<?= set_value('cl_apellido_paterno'); ?>">
 									<span class="pull-center error_cl_apellido_paterno" style="color: red">
 										<?= form_error('cl_apellido_paterno'); ?></span>
 								</div>
 								<!-- Apellido Materno -->
 								<div class="col-xs-12 col-sm-3">
-									<label class="control-label">Apellido Materno</label>
-									<input type="text" placeholder="Apellido Materno" name="cl_apellido_materno" id="cl_apellido_materno" class="form-control" value="<?= set_value('cl_apellido_materno'); ?>">
+									<label class="control-label">Apellido materno</label>
+									<input type="text" placeholder="Apellido materno" name="cl_apellido_materno" id="cl_apellido_materno" class="form-control" value="<?= set_value('cl_apellido_materno'); ?>">
 									<span class="pull-center error_cl_apellido_materno" style="color: red">
 										<?= form_error('cl_apellido_materno'); ?></span>
 								</div>
@@ -82,8 +82,8 @@
 
 								<!-- Telefono -->
 								<div class="col-xs-12 col-sm-3">
-									<label class="control-label"> Telefono</label>
-									<input type="text" placeholder="Telfono" name="cl_telefono" id="cl_telefono" class="form-control" data-inputmask='"mask": "999 999 9999"' data-mask value="<?= set_value('cl_telefono'); ?>">
+									<label class="control-label"> Teléfono</label>
+									<input type="text" placeholder="Teléfono" name="cl_telefono" id="cl_telefono" class="form-control" data-inputmask='"mask": "999 999 9999"' data-mask value="<?= set_value('cl_telefono'); ?>">
 									<span class="pull-center error_cl_telefono" style="color: red">
 										<?= form_error('cl_telefono'); ?></span>
 								</div>
@@ -91,7 +91,7 @@
 								<!-- Correo -->
 								<div class="col-xs-12 col-sm-3">
 									<label class="control-label" >* Usuario</label>
-									<input type="text" placeholder="Usuario" name="cl_usuario" id="cl_usuario" class="form-control tooltips" data-placement="top" data-rel="tooltip" data-original-title="El nombre de usuario solo debe contener letras y numeros, con longitud de 5 a 15 caracteres." value="<?= set_value('cl_usuario'); ?>">
+									<input type="text" placeholder="Usuario" name="cl_usuario" id="cl_usuario" class="form-control tooltips" data-placement="top" data-rel="tooltip" data-original-title="El nombre de usuario solo debe contener letras y números, con longitud de 5 a 15 caracteres." value="<?= set_value('cl_usuario'); ?>">
 									<span class="pull-center error_cl_usuario" style="color: red">
 										<?= form_error('cl_usuario'); ?></span>
 								</div>
@@ -110,7 +110,7 @@
 								<div class="col-xs-12 col-sm-3">
 									<label class="control-label">* Confirmar contraseña</label>
 									<span class="input-help">
-									<input type="password" placeholder="Confirmar Contraseña" name="cl_fcontrasenia" id="cl_fcontrasenia" class="form-control">
+									<input type="password" placeholder="Confirmar contraseña" name="cl_fcontrasenia" id="cl_fcontrasenia" class="form-control">
 									<i class="help-button popovers" data-placement="right" data-trigger="hover" data-rel="popover" data-original-title="La contraseña debe contener 1 letra en mayúscula, 1 símbolo y 1 dígito numérico y sin espacios en una palabra de 6 a 10 letras."></i>
 									</span>
 
@@ -205,7 +205,7 @@
 		    
 		    //validando que la contraseña y confirmacion de contraseña coincidan
 			if(cl_contrasenia.trim()!= cl_fcontrasenia.trim()){
-		        $(".error_cl_fcontrasenia").html('La contraseña y la confirmacion de contraseña son diferentes.');
+		        $(".error_cl_fcontrasenia").html('La contraseña y la confirmación de contraseña son diferentes.');
 		        band = 2;
 		    }
 		    
@@ -214,7 +214,7 @@
 		        if(expreg_usuario.test(cl_usuario.trim())){
 		            $(".error_cl_usuario").html('');
 		        }else{
-		            $(".error_cl_usuario").html('El nombre de usuario solo debe contener letras y numeros, con longitud de 5 a 15 caracteres.');
+		            $(".error_cl_usuario").html('El nombre de usuario solo debe contener letras y números, con longitud de 5 a 15 caracteres.');
 		            bad= 2;
 		        }
 		        
@@ -229,7 +229,7 @@
 		                if(resp.error_cl_correo==0){
 		                    $(".error_cl_correo").html('');
 		                }else{
-		                    $(".error_cl_correo").html('El correo electronico '+cl_correo.trim()+' ya ha sido registrado.');
+		                    $(".error_cl_correo").html('El correo electrónico '+cl_correo.trim()+' ya ha sido registrado.');
 		                }
 		                //valida que no se repita el nombre de usuario
 		                if(resp.error_cl_usuario==0){
@@ -323,7 +323,7 @@
 
 		$('.cancelar_usuario').click(function(){
 			$.confirm({
-				title: '¿Deseas Salir?',
+				title: '¿Deseas salir?',
           		theme: 'modern',
 				closeIconClass: 'fa fa-close',
 				icon: 'fa fa-sign-out',

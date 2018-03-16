@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
-		<title>Mia Office | Agregar Espacio</title>
+		<title>Mia Office | Agregar espacio</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="page-header">
-						<h1>Agregar Espacio</h1>
+						<h1>Agregar espacio</h1>
 					</div>
 				</div>
 			</div>
@@ -44,7 +44,7 @@
 					<form method="POST" id="formulario_oficina" action="<?= base_url(); ?>of_oficinas/ejecutar_registrar_nueva_oficina" class="form-horizontal" autocomplete="off">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<i class="fa fa-asterisk" style="color: #999;"></i> Campos Requeridos
+							<i class="fa fa-asterisk" style="color: #999;"></i> Campos requeridos
 						</div>
 						
 						<div class="panel-body">
@@ -52,8 +52,15 @@
 							<div class="form-group">
 								<!-- Nombre -->
 								<div class="col-xs-12 col-sm-4">
-									<label class="control-label" >* Nombre del espacio</label>
-									<input type="text" placeholder="Nombre del espacio" name="of_nombre" id="of_nombre" class="form-control" value="<?= set_value('of_nombre'); ?>">
+									<label class="control-label" >* Ubicación de oficina</label>
+									<select name="of_nombre" id="of_nombre" class="form-control" value="<?= set_value('of_nombre'); ?>">
+									<option value="">Ubicación de oficina</option>
+									<option value="Oficina Individual" <?= set_select('cve_ent', "Oficina Individual"); ?> >Oficina Individual</option>
+									<option value="Oficina Intermedia de 2 a 4 personas" <?= set_select('cve_ent', "Oficina Intermedia de 2 a 4 personas"); ?> >Oficina Intermedia de 2 a 4 personas</option>
+									<option value="Oficina Grande más de 5 personas" <?= set_select('cve_ent', "Oficina Grande más de 5 personas"); ?> >Oficina Grande más de 5 personas</option>
+									<option value="Sala de Juntas 2 a 4 personas" <?= set_select('cve_ent', "Sala de Juntas 2 a 4 personas"); ?> >Sala de Juntas 2 a 4 personas</option>
+									<option value="Sala de Juntas 5 a 8 personas" <?= set_select('cve_ent', "Sala de Juntas 5 a 8 personas"); ?> >Sala de Juntas 5 a 8 personas</option>
+									</select>
 									<span class="pull-center error_of_nombre" style="color: red">
 										<?= form_error('of_nombre'); ?></span>
 								</div>
@@ -195,7 +202,7 @@
 
 		$('.cancelar_usuario').click(function(){
 			$.confirm({
-				title: '¿Deseas Salir?',
+				title: '¿Deseas salir?',
           		theme: 'modern',
 				closeIconClass: 'fa fa-close',
 				icon: 'fa fa-sign-out',

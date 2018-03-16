@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
-		<title>Mia Office | Editar Usuario</title>
+		<title>Mia Office | Editar usuario</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,11 +36,11 @@
 				<div class="col-sm-12">
 					<ol class="breadcrumb">
 						<li class="active">
-							<i class="fa fa-asterisk" style="color: #999;"></i> Campos Requeridos
+							<i class="fa fa-asterisk" style="color: #999;"></i> Campos requeridos
 						</li>
 					</ol>
 					<div class="page-header">
-						<h1>Editar Usuario: <?= $usuario->us_usuario; ?></h1>
+						<h1>Editar usuario: <?= $usuario->us_usuario; ?></h1>
 					</div>
 				</div>
 			</div>
@@ -52,7 +52,7 @@
 
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							Datos Personales
+							Datos personales
 						</div>
 						
 						<div class="panel-body">
@@ -68,8 +68,8 @@
 								</div>
 								<!-- Apellido Paterno -->
 								<div class="col-xs-12 col-sm-3">
-									<label class="control-label">* Apellido Paterno</label>
-									<input type="text" placeholder="Apellido Paterno" name="us_apellido_paterno" 
+									<label class="control-label">* Apellido paterno</label>
+									<input type="text" placeholder="Apellido paterno" name="us_apellido_paterno" 
 									id="us_apellido_paterno" class="form-control" 
 									value="<?= isset($usuario)?$usuario->us_apellido_paterno:set_value('us_apellido_paterno'); ?>">
 									<span class="pull-center error_us_apellido_paterno" style="color: red">
@@ -77,8 +77,8 @@
 								</div>
 								<!-- Apellido Materno -->
 								<div class="col-xs-12 col-sm-3">
-									<label class="control-label">Apellido Materno</label>
-									<input type="text" placeholder="Apellido Materno" name="us_apellido_materno" id="us_apellido_materno" class="form-control"
+									<label class="control-label">Apellido materno</label>
+									<input type="text" placeholder="Apellido materno" name="us_apellido_materno" id="us_apellido_materno" class="form-control"
 									value="<?= isset($usuario)?$usuario->us_apellido_materno:set_value('us_apellido_materno'); ?>">
 									<span class="pull-center error_us_apellido_materno" style="color: red">
 										<?= form_error('us_apellido_materno'); ?></span>
@@ -95,7 +95,7 @@
 					</div>
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							Datos Usuario
+							Datos usuario
 						</div>
 						
 						<div class="panel-body">
@@ -104,7 +104,7 @@
 								<!-- Correo -->
 								<div class="col-xs-12 col-sm-3">
 									<label class="control-label" >* Usuario</label>
-									<input type="text" placeholder="Nombre" name="us_usuario" id="us_usuario" class="form-control tooltips" data-placement="top" data-rel="tooltip" data-original-title="El nombre de usuario solo debe contener letras y numeros, con longitud de 5 a 15 caracteres." value="<?= isset($usuario)?$usuario->us_usuario:set_value('us_usuario'); ?>">
+									<input type="text" placeholder="Usuario" name="us_usuario" id="us_usuario" class="form-control tooltips" data-placement="top" data-rel="tooltip" data-original-title="El nombre de usuario solo debe contener letras y números, con longitud de 5 a 15 caracteres." value="<?= isset($usuario)?$usuario->us_usuario:set_value('us_usuario'); ?>">
 									<span class="pull-center error_us_usuario" style="color: red">
 										<?= form_error('us_usuario'); ?></span>
 								</div>
@@ -132,9 +132,9 @@
 								</div>
 								<!-- Nivel Usuario -->
 								<div class="col-xs-12 col-sm-3">
-									<label class="control-label">* Nivel de Usuario</label>
+									<label class="control-label">* Nivel de usuario</label>
 									<select class="form-control" id="us_id_nivel_usuario" name="us_id_nivel_usuario">
-										<option value="">Nivel de Usuario</option>
+										<option value="">Nivel de usuario</option>
 										<?php foreach($nivel_usuario as $row): ?>
 										<option value="<?= $row->nu_id_nivel_usuario; ?>"  
 								        <?= set_select('us_id_nivel_usuario', $row->nu_id_nivel_usuario); 
@@ -331,7 +331,7 @@
 
 		$('.cancelar_usuario').click(function(){
 			$.confirm({
-				title: '¿Deseas Salir?',
+				title: '¿Deseas salir?',
           		theme: 'modern',
 				closeIconClass: 'fa fa-close',
 				icon: 'fa fa-sign-out',

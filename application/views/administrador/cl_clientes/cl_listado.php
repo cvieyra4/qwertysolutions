@@ -145,7 +145,7 @@
 											<th>Cliente</th>
 											<th>Correo</th>
 											<th>Telefono</th>
-											<th>Status</th>
+											<th>Estatus</th>
 											<?php if($this->session->userdata('us_nivel_usuario') == 'Administrador') { ?>
 											<th>Acción</th>
 											<?php } ?>

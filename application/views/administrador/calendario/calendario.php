@@ -129,9 +129,9 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-3">
-							<label>Seleccionar Dirección</label>
+							<label>Ubicación de oficina</label>
 							<select class="form-control" id="ca_id_ubicacion">
-								<option value="0">Seleccionar Dirección</option>
+								<option value="0">Ubicación de oficina</option>
 								<?php foreach ($direcciones as $row): ?>
 									<option value="<?= $row->ub_id_ubicacion; ?>" clave="<?= $row->ub_nombre; ?>"><?= $row->ub_nombre; ?></option>
 								<?php endforeach; ?>
@@ -139,9 +139,9 @@
 						</div>
 
 						<div class="col-xs-12 col-sm-3">
-							<label>Seleccionar Espacio</label>
+							<label>Seleccionar espacio</label>
 							<select class="form-control" id="ca_id_oficina">
-								<option value="0">Seleccionar Espacio</option>
+								<option value="0">Seleccionar espacio</option>
 							</select>
 						</div>
 					</div>
@@ -182,14 +182,14 @@
 							<input type="hidden" class="ca_id_ubicacion" name="ca_id_ubicacion">
 							<!-- hora Inicio -->
 							<div class="col-sm-6">
-								<label class="control-label">hora Inicio</label>
+								<label class="control-label">Hora inicio</label>
 							    <input type="text" class="form-control horaInicio" onkeypress="return SoloNumeros(event);" />
 							    <input type="hidden" name="ca_hora_inicio" id="ca_hora_inicio" value="">
 							    <span class="pull_center error_ca_hora_inicio" style="color:red;"></span>
 							</div>
 							<!-- hora Final -->
 							<div class="col-sm-6">
-							    <label class="control-label">hora Final</label>
+							    <label class="control-label">Hora final</label>
 							    <input type="text" class="form-control horaFin" onkeypress="return SoloNumeros(event);"  />
 							    <input type="hidden" name="ca_hora_fin" id="ca_hora_fin" value=""  >
 							    <span class="pull_center error_ca_hora_fin" style="color:red;"></span>
@@ -204,7 +204,7 @@
 						<button type="button" data-dismiss="modal" class="btn btn-light-grey" onclick="limpiarFomulario()">
 							Cerrar
 						</button>
-						<button type='submit' class='btn btn-success guardar-evento'>
+						<button type='button' class='btn btn-success guardar-evento'>
 							<i class='fa fa-save'></i> Guardar
 						</button>
 					</div>
@@ -230,14 +230,14 @@
 						<div class="row">
 							<!-- hora Inicio -->
 							<div class="col-sm-6">
-								<label class="control-label">hora Inicio</label>
+								<label class="control-label">Hora Inicio</label>
 							    <input type="text" class="form-control horaInicioEditar" onkeypress="return SoloNumeros(event);" />
 							    <input type="hidden" name="ca_hora_inicio_editar" id="ca_hora_inicio_editar" value="">
 							    <span class="pull_center error_ca_hora_inicio_editar" style="color:red;"></span>
 							</div>
 							<!-- hora Final -->
 							<div class="col-sm-6">
-							    <label class="control-label">hora Final</label>
+							    <label class="control-label">Hora final</label>
 							    <input type="text" class="form-control horaFinEditar" onkeypress="return SoloNumeros(event);"  />
 							    <input type="hidden" name="ca_hora_fin_editar" id="ca_hora_fin_editar" value="">
 							    <span class="pull_center error_ca_hora_fin_editar" style="color:red;"></span>
@@ -252,7 +252,7 @@
 						<button type="button" data-dismiss="modal" class="btn btn-red eliminar-evento">
 							<i class="fa fa-trash"></i> Eliminar
 						</button>
-						<button type='submit' class='btn btn-success editar-evento'>
+						<button type='button' class='btn btn-success editar-evento'>
 							<i class='fa fa-check'></i> Editar
 						</button>
 					</div>
@@ -298,15 +298,15 @@
 						data:'of_id_ubicacion='+ca_id_ubicacion,
 						dataType: 'json',
 						success: function(resp){
-							$('#ca_id_oficina').html('<option value="0">Seleccionar Espacio</option>');
+							$('#ca_id_oficina').html('<option value="0">Seleccionar espacio</option>');
 							$.each(resp, function(k,v){
-								alert(v.of_id_ubicacion);
+								
 								$('#ca_id_oficina').append('<option value="'+v.of_id_oficina+'" clave="'+v.of_nombre+'">'+v.of_nombre+'</option>')
 							});
 						}
 					});
 				}else{
-					$('#ca_id_oficina').html('<option value="0">Seleccionar Espacio</option>');
+					$('#ca_id_oficina').html('<option value="0">Seleccionar espacio</option>');
 				}
 			});
 
@@ -375,6 +375,7 @@
 						        selectable: true,
 						        selectHelper: true,
 						        select: function (start, end, allDay) {
+						        	
 						        	$modal.modal('show');
 						        	$('.add-event').html('Agregar Evento, Dirección: '+direcion+' / Espacio: '+espacio);
 						        	$('.ca_id_oficina').val(ca_id_oficina);
@@ -383,34 +384,35 @@
 						            $('#ca_fecha_fin').val(dateFormat(end));
 
 						            $('.guardar-evento').click(function(){
-						            			if(validarEvento()){
-						            			var title = $('#ca_titulo').val();
-						            			$.ajax({
-						            				type: 'POST',
-										            url:  $("#formulario_evento").attr('action'),
-										            data: $("#formulario_evento").serialize(),
-										            dataType: 'json',
-										            success: function(resp){
-										            	if(resp){
-										            		calendar.fullCalendar('renderEvent', {
-										            			id: resp,
-								                                title: 'Disponible para reserva',
-								                                start: start,
-								                                end: end,
-								                                allDay: allDay,
-								                                className: 'label-green'
+						            	alert('Que pasa?');
+						            	if(validarEvento()){
+						            		var title = $('#ca_titulo').val();
+						            		$.ajax({
+						            			type: 'POST',
+										        url:  $("#formulario_evento").attr('action'),
+										        data: $("#formulario_evento").serialize(),
+										        dataType: 'json',
+										        success: function(resp){
+										        	if(resp){
+										            	$(this).attr('disabled', true);
+										            	calendar.fullCalendar('renderEvent', {
+										            		id: resp,
+								                            title: 'Disponible para reserva',
+								                            start: start,
+								                            end: end,
+								                            allDay: allDay,
+								                            className: 'label-green'
 								                                //className: $categoryClass
-								                            }, true); // make the event "stick"
-								                            $("#formulario_evento")[0].reset();
-						            						$modal.modal('hide');
-										            	}else{
-
-										            	}
+								                        }, true); // make the event "stick"
+								                        $("#formulario_evento")[0].reset();
+						            					$modal.modal('hide');
+						            					return false;
 										            }
-						            			});
-						            		}
-						            	});
-						            },
+										        }
+						            		});
+						            	}
+						            });
+						        },
 						            eventClick: function (calEvent, jsEvent, view) {
 						            	if(calEvent._id != 0){
 						            	$.ajax({
@@ -453,8 +455,7 @@
 										        success: function(resp){
 										        	if(resp){
 									            		calendar.fullCalendar('removeEvents', function (ev) {
-									            			alert(calEvent.id);
-									                        return (ev._id == calEvent._id);
+									            			return (ev._id == calEvent._id);
 						                    			});
 						                    			$modalEditar.modal('hide');
 						                    		}else{

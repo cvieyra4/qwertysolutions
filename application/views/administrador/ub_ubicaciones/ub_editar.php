@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
-		<title>Mia Office | Editar Dirección</title>
+		<title>Mia Office | Editar dirección</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="page-header">
-						<h1>Editar Dirección</h1>
+						<h1>Editar dirección</h1>
 					</div>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
 
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<i class="fa fa-asterisk" style="color: #999;"></i> Campos Requeridos
+							<i class="fa fa-asterisk" style="color: #999;"></i> Campos requeridos
 						</div>
 						
 						<div class="panel-body">
@@ -59,7 +59,7 @@
 									<input type="text" placeholder="Nombre" name="ub_nombre" id="ub_nombre" class="form-control" 
 									value="<?= isset($ubicacion)?$ubicacion->ub_nombre:set_value('ub_nombre'); ?>">
 									<span class="pull-center error_ub_nombre" style="color: red">
-										<?= form_error('ub_cnombre'); ?></span>
+										<?= form_error('ub_nombre'); ?></span>
 								</div>
 								<!-- Calle -->
 								<div class="col-xs-12 col-sm-4">
@@ -70,8 +70,8 @@
 								</div>
 								<!-- Nº Exterior -->
 								<div class="col-xs-12 col-sm-4">
-									<label class="control-label">* Nº Exterior</label>
-									<input type="number" placeholder="Nº Exterior" name="ub_numero_exterior" 
+									<label class="control-label">* Nº exterior</label>
+									<input type="number" placeholder="Nº exterior" name="ub_numero_exterior" 
 									id="ub_numero_exterior" class="form-control" onkeypress="return SoloNumeros(event);" 
 									value="<?= isset($ubicacion)?$ubicacion->ub_numero_exterior:set_value('ub_numero_exterior'); ?>">
 									<span class="pull-center error_ub_numero_exterior" style="color: red">
@@ -79,7 +79,7 @@
 								</div>
 								<!-- Nº Interior -->
 								<div class="col-xs-12 col-sm-4">
-									<label class="control-label">Nº Interior</label>
+									<label class="control-label">Nº interior</label>
 									<input type="text" placeholder="Nº Interior" name="ub_numero_interior" 
 									id="ub_numero_interior" class="form-control" 
 									value="<?= isset($ubicacion)?$ubicacion->ub_numero_interior:set_value('ub_numero_interior'); ?>">
@@ -102,6 +102,37 @@
 									value="<?= isset($ubicacion)?$ubicacion->ub_codigo_postal:set_value('ub_codigo_postal'); ?>">
 									<span class="pull-center error_ub_codigo_postal" style="color: red">
 										<?= form_error('ub_codigo_postal'); ?></span>
+								</div>
+								<!-- Estado -->
+								<div class="col-xs-12 col-sm-4">
+									<label class="control-label">* Estados</label>
+									<select class="form-control" name="cve_ent" id="cve_ent">
+										<option value="">Estados</option>
+										<?php foreach($estados as $row): ?>
+										<option value="<?= $row->cve_ent; ?>"
+										<?= set_select('cve_ent', $row->cve_ent); 
+										if($row->cve_ent == $ubicacion->cve_ent) echo 'selected="selected"'
+										?> > <?= $row->nom_ent; ?> </option>
+										<?php endforeach; ?>
+									</select>
+									<span class="pull-center error_cve_ent" style="color: red">
+										<?= form_error('cve_ent'); ?></span>
+								</div>
+
+								<!-- Municipio -->
+								<div class="col-xs-12 col-sm-4">
+									<label class="control-label">* Municipios</label>
+									<select class="form-control" name="cve_mun" id="cve_mun">
+										<option value="">Municipios</option>
+										<?php foreach($municipios as $row): ?>
+										<option value="<?= $row->cve_mun; ?>"
+										<?= set_select('cve_mun', $row->cve_mun); 
+										if($row->cve_mun == $ubicacion->cve_mun) echo 'selected="selected"';
+										?> ><?= $row->nom_mun; ?></option>
+										<?php endforeach; ?>
+									</select>
+									<span class="pull-center error_cve_mun" style="color: red">
+										<?= form_error('cve_mun'); ?></span>
 								</div>
 							</div>
 						</div>
@@ -135,6 +166,25 @@
 				Main.init();
 			});
 		</script>
+		<script>
+			$('#cve_ent').change(function(){
+				var cve_ent = $(this).val();
+				if(cve_ent != ""){
+					$.ajax({
+						type: 'post',
+						url: '<?= base_url(); ?>ub_ubicaciones/getMunicipios',
+						data: 'cve_ent='+cve_ent,
+						dataType: 'json',
+						success: function(resp){
+							$('#cve_mun').html('<option value="000">* Municipio</option>');
+							$.each(resp, function(k,v){
+								$('#cve_mun').append('<option value="'+v.cve_mun+'">'+v.nom_mun+'</option>');
+							});
+						}
+					});
+				}
+			});
+		</script>
 		<script type="text/javascript">
 
 		$("[data-mask]").inputmask();
@@ -147,6 +197,8 @@
 			var ub_numero_exterior  =  $('#ub_numero_exterior').val();
 		    var ub_colonia          =  $('#ub_colonia').val();
 			var ub_codigo_postal 	=  $('#ub_codigo_postal').val();
+			var cve_ent 			= $('#cve_ent').val();
+			var cve_mun 			= $('#cve_mun').val();
 			
 		    
 		if(
@@ -154,13 +206,17 @@
 			ub_calle.trim() !="" && 
 		  	ub_numero_exterior.trim() != "" && 
 		  	ub_colonia.trim() != "" &&
-		    ub_codigo_postal.trim() != ""  
+		    ub_codigo_postal.trim() != "" &&
+		    cve_ent.trim() != "" &&
+		    cve_mun.trim() != ""
 		){
 			$(".error_ub_nombre").text("");
 		  	$(".error_ub_calle").text("");
 		  	$(".error_ub_numero_exterior").text("");
 		  	$(".error_ub_colonia").text("");
 		    $(".error_ub_codigo_postal").text("");
+		    $('.error_cve_ent').text("");
+		    $('.error_cve_mun').text("");
 		  	
 		        
 		    if(band==0){
@@ -197,13 +253,17 @@
 		    ub_calle.trim() == "" && 
 		    ub_numero_exterior.trim() == "" && 
 		    ub_colonia.trim() == "" && 
-		    ub_codigo_postal.trim() == ""  
+		    ub_codigo_postal.trim() == "" &&
+		    cve_ent.trim() == "" &&
+		    cve_mun.trim() == ""
 		){
 			$(".error_ub_nombre").text(req)
 		    $(".error_ub_calle").text(req);
 		    $(".error_ub_numero_exterior").text(req);
 		    $(".error_ub_colonia").text(req);
 		    $(".error_ub_codigo_postal").text(req);
+		    $('.error_cve_ent').text(req);
+		    $('.error_cve_mun').text(req);
 
 		    return false;	
 		}
@@ -212,9 +272,11 @@
 			ub_calle.trim() == "" || 
 		    ub_numero_exterior.trim() == "" || 
 		    ub_colonia.trim() == "" || 
-		    ub_codigo_postal.trim() == ""   
+		    ub_codigo_postal.trim() == "" ||
+		    cve_ent.trim() == "" ||
+		    cve_mun.trim() == ""  
 		){
-			if(ub_cnombre.trim() == "")$(".error_ub_nombre").text(req);
+			if(ub_nombre.trim() == "")$(".error_ub_nombre").text(req);
 		        else $(".error_ub_nombre").text("");
 			
 		    if(ub_calle.trim() == "")$(".error_ub_calle").text(req);
@@ -229,13 +291,19 @@
 		    if(ub_codigo_postal.trim() == "")$(".error_ub_codigo_postal").text(req);
 		        else $(".error_ub_codigo_postal").text("");
 
-		        return false;	
+		    if(cve_ent.trim() == "")$(".error_cve_ent").text(req);
+		        else $(".error_cve_ent").text("");
+
+		    if(cve_mun.trim() == "")$(".error_cve_mun").text(req);
+		        else $(".error_cve_mun").text("");
+
+		    return false;	
 		}
 	}
 
 		$('.cancelar_usuario').click(function(){
 			$.confirm({
-				title: '¿Deseas Salir?',
+				title: '¿Deseas salir?',
           		theme: 'modern',
 				closeIconClass: 'fa fa-close',
 				icon: 'fa fa-sign-out',

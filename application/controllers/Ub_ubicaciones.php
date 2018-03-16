@@ -8,6 +8,7 @@ class ub_ubicaciones extends CI_Controller {
         $this->load->helper(array('security', 'form','url'));
         $this->load->model('ubicacionesModel');
         $this->load->model('usuariosModel');
+        $this->load->model('catalogosModel');
     }
 
     public function index(){
@@ -30,8 +31,14 @@ class ub_ubicaciones extends CI_Controller {
     }
 
     public function agregar_ubicacion(){
+    	$data['estados'] 	 = $this->catalogosModel->getEstados();
+    	$data['municipios']  = $this->catalogosModel->getMunicipios(0);
+    	$this->load->view('administrador/ub_ubicaciones/ub_agregar', $data);
+    }
 
-    	$this->load->view('administrador/ub_ubicaciones/ub_agregar');
+    public function getMunicipios(){
+    	$municipios = $this->catalogosModel->getMunicipios($this->input->post('cve_ent'));
+    	echo json_encode($municipios);
     }
 
     /*metodo que valida los datos de nueva ubicación */
@@ -44,10 +51,13 @@ class ub_ubicaciones extends CI_Controller {
 		$this->form_validation->set_rules('ub_numero_interior', 'Número Interior', 'xss_clean');
 		$this->form_validation->set_rules('ub_colonia', 		'Colonia', 		   'required|xss_clean');
 		$this->form_validation->set_rules('ub_codigo_postal',   'Codigo Postal',   'required|numeric|xss_clean');
+		$this->form_validation->set_rules('cve_ent',   'Entidad',   'required|xss_clean');
+		$this->form_validation->set_rules('cve_mun',   'Municipio',   'required|xss_clean');
 			   
 		if ($this->form_validation->run() == false){
-
-			$this->load->view('administrador/ub_ubicaciones/ub_agregar');
+			$data['estados'] 	 = $this->catalogosModel->getEstados();
+    		$data['municipios']  = $this->catalogosModel->getMunicipios($this->input->post('cve_ent'));
+			$this->load->view('administrador/ub_ubicaciones/ub_agregar', $data);
 
 		}else{
 			$ub_id_ubicacion = $this->ubicacionesModel->registrar_nueva_ubicacion(); 
@@ -57,7 +67,9 @@ class ub_ubicaciones extends CI_Controller {
 
 	public function editar_ubicacion($ub_id_ubicacion){
         $this->usuariosModel->usuario_activo_o_inactivo();
-        $data['ubicacion']     = $this->ubicacionesModel->getUbicacionID($ub_id_ubicacion);
+        $data['ubicacion']   = $this->ubicacionesModel->getUbicacionID($ub_id_ubicacion);
+        $data['estados'] 	 = $this->catalogosModel->getEstados();
+    	$data['municipios']  = $this->catalogosModel->getMunicipios($data['ubicacion']->cve_ent);
 
         $this->load->view('administrador/ub_ubicaciones/ub_editar', $data);
     }
@@ -78,6 +90,8 @@ class ub_ubicaciones extends CI_Controller {
 		if ($this->form_validation->run() == false){
 
 		$data['ubicacion']     = $this->ubicacionesModel->getUbicacionID($ub_id_ubicacion);
+		$data['estados'] 	 = $this->catalogosModel->getEstados();
+    	$data['municipios']  = $this->catalogosModel->getMunicipios($this->input->post('cve_ent'));
         $this->load->view('administrador/ub_ubicaciones/ub_editar', $data);
 
 		}else{

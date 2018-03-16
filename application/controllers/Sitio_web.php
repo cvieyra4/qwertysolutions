@@ -25,6 +25,11 @@ class sitio_web extends CI_Controller {
     	echo json_encode($oficinas);
     }
 
+    public function getDireccion(){
+        $direccion = $this->ubicacionesModel->getDireccion($this->input->post('re_id_ubicacion'), $this->input->post('entidad'), $this->input->post('municipio'));
+        echo json_encode($direccion);
+    }
+
     public function validar_usuario_ajax(){
     		$arr_errores = array(
 				'error_cl_usuario'  =>  0,
@@ -59,7 +64,7 @@ class sitio_web extends CI_Controller {
 
 			$sessionData = array(
 				'cl_id_cliente'		=> $cl->cl_id_cliente,
-				'cl_nombre'			=> $cl->cl_nombre.$cl->cl_apellido_paterno.$cl->cl_apellido_materno,
+				'cl_nombre'			=> $cl->cl_nombre.' '.$cl->cl_apellido_paterno.$cl->cl_apellido_materno,
 				'cl_correo'			=> $cl->cl_correo,
 				'cl_telefono'		=> $cl->cl_telefono,	
 				'cl_usuario'       	=> $cl->cl_usuario,
@@ -84,6 +89,29 @@ class sitio_web extends CI_Controller {
     	$calendario  = $this->calendarioModel->getFechasDisponibles();
     	echo json_encode($calendario);
     }
+    public function getHorarios(){
+        $calendario  = $this->calendarioModel->getFechasDisponibles();
+        $fecha = explode('/', $this->input->post('re_fecha'));
+        $re_fecha = $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
+        $re_id_oficina = $this->input->post('re_id_oficina');
+        $re_id_ubicacion = $this->input->post('re_id_ubicacion');
+        $hi = explode(":", $calendario->ca_hora_inicio);
+        $hf = explode(":", $calendario->ca_hora_fin);
+        $rango = $hf[0]-$hi[0];
+        $dura_horas = $this->input->post('dura_horas');
+
+        $html = '';
+        for($hi[0]; $hi[0]<$hf[0]; $hi[0]+=$dura_horas){
+            $horaIni = $hi[0].':'.$hi[1];
+            $horaFin = $hi[0]+$dura_horas.':'.$hi[1];
+
+            $reservaciones = $this->reservacionesModel->getReservacion($re_fecha, $horaIni, $horaFin, $re_id_oficina, $re_id_ubicacion);
+            if($reservaciones == 0){
+                $html .= '<option value="'.$horaIni.'-'.$horaFin.'">'.$horaIni.' - '.$horaFin.'</option>';
+            }
+        }
+        echo json_encode($html);
+    }
 
     public function getReservacion(){
     	$reservacion = $this->reservacionesModel->getReservacion();
@@ -98,20 +126,23 @@ class sitio_web extends CI_Controller {
     public function agregar_reservacion(){
     	$data = array
     	(	
-    		'nombre' 		  => $this->input->post('nombre_invitado'), 
-    		'correo' 		  => $this->input->post('correo_invitado'), 
+    		'nombre' 		  => $this->input->post('nombre'), 
+    		'correo' 		  => $this->input->post('correo'), 
+            'telefono'          => $this->input->post('telefono'), 
     		're_id_ubicacion' => $this->input->post('re_id_ubicacion'), 
     		're_id_oficina' => $this->input->post('re_id_oficina'), 
-    		're_fecha' => $this->input->post('re_fecha'), 
-    		're_hora_inicio' => $this->input->post('re_hora_inicio'), 
-    		're_hora_fin' => $this->input->post('re_hora_fin'), 
-    		're_id_cliente' => $this->input->post('re_id_cliente'), 
-    		're_precio' => $this->input->post('re_precio'), 
-
+    		'fecha' => $this->input->post('re_fecha'), 
+    		'horario' => $this->input->post('horario'), 
+    		'cliente' => $this->input->post('re_id_cliente'), 
+    		'precio' => $this->input->post('re_precio')
     	);
     	$reservacion = $this->reservacionesModel->agregar_reservacion();
-    	$this->session->set_flashdata($data);
-    	redirect(base_url().'payment');
+        if($reservacion == 1){
+    	   $this->session->set_flashdata($data);
+    	   redirect(base_url().'payment');
+        }else{
+            redirect(base_url());
+        }
     }
 }
 ?>
