@@ -26,15 +26,15 @@
 	</head>
 	<body>
 		<header>
-			<div class="clearfix " id="topbar">
+				<div class="clearfix " id="topbar" style="background-color: #177984;">
 				<div class="container">
 					<div class="row">
-						<div class="col-sm-6">
-							<div class="callus">
-								Contactanos: (641)-734-4763 - Correo:
-								<a href="mailto:contacto@miaoffice.com">
-									contacto@miaoffice.com
-								</a>
+						<div class="col-sm-12">
+							<div class="callus" style="color:#FFFFFF;font-size: 15px;">
+							Contáctanos: (81) 88.83.00.33 - Correo:
+							<a href="mailto:ventas@miaoffice.com.mx" style="color:#FFFFFF">
+								ventas@miaoffice.com.mx
+							</a>
 							</div>
 						</div>
 						<div class="col-sm-6">
@@ -83,15 +83,16 @@
 						<div class="col-md-12">
 							<h3>Pago de la Reservación</h3>
 						</div>
-						<input type="hidden" name="nombre" value="<?= $this->session->flashdata('nombre'); ?>">
-						<input type="hidden" name="correo" value="<?= $this->session->flashdata('correo'); ?>">
-						<input type="hidden" name="telefono" value="<?= $this->session->flashdata('telefono'); ?>">
-						<input type="hidden" name="re_id_ubicacion" value="<?= $this->session->flashdata('re_id_ubicacion'); ?>">
-						<input type="hidden" name="re_id_oficina" value="<?= $this->session->flashdata('re_id_oficina'); ?>">
-						<input type="hidden" name="fecha" value="<?= $this->session->flashdata('fecha'); ?>">
-						<input type="hidden" name="horario" value="<?= $this->session->flashdata('horario'); ?>">
-						<input type="hidden" name="cliente" value="<?= $this->session->flashdata('cliente'); ?>">
-						<input type="hidden" name="precio" value="<?= $this->session->flashdata('precio'); ?>">
+						<input type="hidden" name="nombre" id="nombre" value="<?= $this->session->flashdata('nombre'); ?>">
+						<input type="hidden" name="correo" id="correo" value="<?= $this->session->flashdata('correo'); ?>">
+						<input type="hidden" name="telefono" id="telefono" value="<?= $this->session->flashdata('telefono'); ?>">
+						<input type="hidden" name="re_id_ubicacion" id="re_id_ubicacion" value="<?= $this->session->flashdata('re_id_ubicacion'); ?>">
+						<input type="hidden" name="re_id_oficina" id="re_id_oficina" value="<?= $this->session->flashdata('re_id_oficina'); ?>">
+						<input type="hidden" name="fecha" id="fecha" value="<?= $this->session->flashdata('fecha'); ?>">
+						<input type="hidden" name="dura_horas" id="dura_horas" value="<?= $this->session->flashdata('dura_horas'); ?>">
+						<input type="hidden" name="horario" id="horario" value="<?= $this->session->flashdata('horario'); ?>">
+						<input type="hidden" name="cliente" id="cliente" value="<?= $this->session->flashdata('cliente'); ?>">
+						<input type="hidden" name="precio" id="precio" value="<?= $this->session->flashdata('precio'); ?>">
 						<div class="col-md-12">
 							<form class="form-horizontal" action="#" method="POST" id="card-form">
 		                        <div class="form-group">
@@ -141,11 +142,10 @@
 				</div>
 			</section>
 		</div>
-		<footer id="footer">
-			<div class="container">
-			</div>
-			<div class="footer-copyright">
-				<div class="container"></div>
+		<footer id="footer" style="background-color: #177984;">
+
+			<div class="footer-copyright" style="background-color: #177984;color: #FFFFFF;font-size: 15px;">
+				Desarrollado Por: QWERTY SOLUTIONS 2018
 			</div>
 		</footer>
 		<a id="scroll-top" href="#"><i class="fa fa-angle-up"></i></a>
@@ -248,7 +248,7 @@
               conektaSuccessResponseHandler = function(token) {
                         var card="";
                         var str="";
-                        var data="&nombre="+$('#nombre').val()+"&correo="+$('#correo').val()+"&telefono="+$('#telefono').val()+"&re_id_ubicacion="+$('#re_id_ubicacion').val()+"&re_id_oficina="+$('#re_id_oficina').val()+"&fecha="+$('#fecha').val()+"&hora_inicio="+$('#hora_fin').val()+"&cliente="+$('#cliente').val()+"&precio="+$('#precio').val();
+                        var data="&nombre="+$('#nombre').val()+"&correo="+$('#correo').val()+"&telefono="+$('#telefono').val()+"&re_id_ubicacion="+$('#re_id_ubicacion').val()+"&re_id_oficina="+$('#re_id_oficina').val()+"&fecha="+$('#fecha').val()+"&dura_horas="+$('#dura_horas').val()+"&horario="+$('#horario').val()+"&cliente="+$('#cliente').val()+"&precio="+$('#precio').val();
 
                         $.each($("input:text.card"), function(){
                             card= card + "&"+$(this).data('conekta')+"="+ $(this).val();
@@ -262,8 +262,43 @@
                             data: str,
                             dataType: 'json',
                             success: function(response){
-                                console.log(response);
-                                location.href='<?= base_url(); ?>';
+                               	if(response == 1){
+                               		$.confirm({
+                               			icon: 'fa fa-check-circle',
+                                		theme: 'modern',
+                                		animation: 'scale',
+                                		type: 'green',
+									    title: 'Tu pago fue realizado con exito!',
+									    content: 'Se ha enviado un correo de confirmación',
+									    buttons: {
+									        Ok: {
+									            text: 'Ok',
+									            btnClass: 'btn-blue',
+									            action: function(){
+									                location.href='<?= base_url(); ?>';
+									            }
+									        }
+									    }
+									});
+                               	}else{
+                               		$.confirm({
+                               			icon: 'fa fa-close',
+                                		theme: 'modern',
+                                		animation: 'scale',
+                                		type: 'red',
+									    title: 'Lo sentimos tu pago no fue realizado, intenta de nuevo o ingresa otra tarjeta',
+									    content: '',
+									    buttons: {
+									        Ok: {
+									            text: 'Ok',
+									            btnClass: 'btn-red',
+									            action: function(){
+									            }
+									        }
+									    }
+									});
+                               	}
+                                
                             }
                         });
                     };

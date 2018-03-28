@@ -40,14 +40,14 @@
 		<script src="<?= plugin_url(); ?>jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
 	</head>
 	<body>
-		<div class="navbar navbar-inverse navbar-fixed-top">
+		<div style="background-color:#177984;" class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
 					<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
 						<span class="clip-list-2"></span>
 					</button>
-					<a class="navbar-brand" href="<?= base_url(); ?>panel/inicio">
-						Quadra Towers Renta de Espacios
+					<a style=" color: #FFFFFF; font-size: 20px" class="navbar-brand" href="<?= base_url(); ?>panel/inicio">
+						MIA Office Renta de Espacios
 					</a>
 				</div>
 				<div class="navbar-tools">
@@ -384,7 +384,7 @@
 						            $('#ca_fecha_fin').val(dateFormat(end));
 
 						            $('.guardar-evento').click(function(){
-						            	alert('Que pasa?');
+						            	//alert('Que pasa?');
 						            	if(validarEvento()){
 						            		var title = $('#ca_titulo').val();
 						            		$.ajax({

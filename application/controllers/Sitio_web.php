@@ -128,13 +128,14 @@ class sitio_web extends CI_Controller {
     	(	
     		'nombre' 		  => $this->input->post('nombre'), 
     		'correo' 		  => $this->input->post('correo'), 
-            'telefono'          => $this->input->post('telefono'), 
+            'telefono'        => $this->input->post('telefono'), 
     		're_id_ubicacion' => $this->input->post('re_id_ubicacion'), 
-    		're_id_oficina' => $this->input->post('re_id_oficina'), 
-    		'fecha' => $this->input->post('re_fecha'), 
-    		'horario' => $this->input->post('horario'), 
-    		'cliente' => $this->input->post('re_id_cliente'), 
-    		'precio' => $this->input->post('re_precio')
+    		're_id_oficina'   => $this->input->post('re_id_oficina'), 
+    		'fecha'           => $this->input->post('re_fecha'), 
+            'dura_horas'      => $this->input->post('dura_horas'),
+    		'horario'         => $this->input->post('horario'), 
+    		'cliente'         => $this->input->post('re_id_cliente'), 
+    		'precio'          => $this->input->post('re_precio')
     	);
     	$reservacion = $this->reservacionesModel->agregar_reservacion();
         if($reservacion == 1){

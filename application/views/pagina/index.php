@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Quadra Towers</title>
+		<title>MIA Office</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="<?= asset_url(); ?>sitio_web/plugins/animate.css/animate.min.css">
 		<link rel="stylesheet" href="<?= asset_url(); ?>sitio_web/css/main.css">
 		<link rel="stylesheet" href="<?= asset_url(); ?>sitio_web/css/main-responsive.css">
+		<link rel="stylesheet" href="<?= asset_url(); ?>sitio_web/css/jquery.bxslider.css">
 		<link rel="stylesheet" href="<?= asset_url(); ?>sitio_web/css/theme_blue.css" type="text/css" id="skin_color">
 		<link rel="stylesheet" href="<?= asset_url(); ?>sitio_web/plugins/revolution_slider/rs-plugin/css/settings.css">
 		<link rel="stylesheet" href="<?= asset_url(); ?>sitio_web/plugins/flex-slider/flexslider.css">
@@ -26,18 +27,20 @@
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	</head>
 	<body>
-		<header>
-			<div class="clearfix " id="topbar">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-6">
-							<div class="callus">
-								Contactanos: (641)-734-4763 - Correo:
-								<a href="mailto:contacto@miaoffice.com">
-									contacto@quadratowers.com
+			<div class="clearfix " id="topbar" style="background-color: #177984;">
+				<div class="container" >
+					<div class="row" >
+						<div class="col-sm-12">
+							<div class="callus" style="color:#FFFFFF;font-size: 15px;">
+								Contáctanos: (81) 88.83.00.33 - Correo:
+								<a href="mailto:ventas@miaoffice.com.mx" style="color:#FFFFFF">
+									ventas@miaoffice.com.mx
 								</a>
 							</div>
 						</div>
+							</div>
+						</div>
+                                                
 						<div class="col-sm-6">
 							<div class="social-icons">
 								<ul>
@@ -64,7 +67,7 @@
 				<div class="container">
 					<div class="navbar-header">
 						<a class="navbar-brand" href="<?= base_url(); ?>">
-							QUADRATOWERS
+							MIA OFFICE - RENTA DE ESPACIOS
 						</a>
 					</div>
 					<div class="navbar-collapse collapse">
@@ -227,12 +230,20 @@
 					</div>
 				</div>
 			</section>
+				<div class="row">
+					<div class="col-sm-12 col-xs-12 col-md-12">
+						<div class="bxslider" style="width:500px">																			
+							<div><img src="<?= asset_url(); ?>imagenes/OFICINAS7.JPG" title="AREAS COMUNES" style="height:700px;width:500px"></div>
+							<div><img src="<?= asset_url(); ?>imagenes/OFICINAS8.JPG" title="AREAS COMUNES" style="height:700px;width:500px"></div>
+							<div><img src="<?= asset_url(); ?>imagenes/OFICINAS1.jpeg" title="AREAS COMUNES" style="height:700px;width:500px"></div>					
+					</div>
+					</div>
+					</div>
 		</div>
-		<footer id="footer">
-			<div class="container">
-			</div>
-			<div class="footer-copyright">
-				<div class="container"></div>
+		<footer id="footer" style="background-color: #177984;">
+
+			<div class="footer-copyright" style="background-color: #177984;color: #FFFFFF;font-size: 10px; valign:center">
+				Desarrollado Por: QWERTY SOLUTIONS 2018
 			</div>
 		</footer>
 		<a id="scroll-top" href="#"><i class="fa fa-angle-up"></i></a>
@@ -287,6 +298,7 @@
 		<script src="<?= asset_url(); ?>sitio_web/plugins/flex-slider/jquery.flexslider.js"></script>
 		<script src="<?= asset_url(); ?>sitio_web/plugins/stellar.js/jquery.stellar.min.js"></script>
 		<script src="<?= asset_url(); ?>sitio_web/plugins/colorbox/jquery.colorbox-min.js"></script>
+		<script src="<?= asset_url(); ?>sitio_web/plugins/jquery.bxslider.js"></script>
 		<script src="<?= asset_url(); ?>sitio_web/js/index.js"></script>
 		<script src="<?= js_url(); ?>jquery-confirm.min.js"></script>
 		<script src="<?= plugin_url(); ?>moment/moment.js"></script>
@@ -301,6 +313,15 @@
 				Main.init();
 				Index.init();
 				$.stellar();
+				
+				jQuery('.bxslider').bxSlider({
+					mode: 'fade',
+					captions: false,
+					autoControls: true,	
+					responsive: true,
+					shrinkItems: true,								
+					slideWidth: 500
+				});
 			});
 		</script>
 		<script>
